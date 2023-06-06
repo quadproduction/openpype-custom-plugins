@@ -1,5 +1,3 @@
-
-# TODO:  Put this variable in OpenPype Project Settings > Global > Add Custom Plugin Path
 from maya import cmds
 import pyblish.api
 from openpype.hosts.maya.api import lib
