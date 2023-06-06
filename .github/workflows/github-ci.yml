@@ -1,0 +1,34 @@
+name: RSync Process
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+env:
+  QUAD_MODULES_TAG: "/prod/softprod/apps/openpype/PLUGINS/quad/${{ github.ref_name }}"
+  QUAD_MODULES_STAGING: "/prod/softprod/apps/openpype/PLUGINS/quad/STAGING"
+  QUAD_MODULES_PROD: "/prod/softprod/apps/openpype/PLUGINS/quad/PROD"
+
+jobs:
+  deploy-staging:
+    runs-on: self-hosted
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v3
+      - name: Print QUAD_MODULES_TAG
+        run: echo ${QUAD_MODULES_TAG}
+
+      - name: Copy the Repository
+        run: rsync -rptl . $QUAD_MODULES_TAG
+
+      - name: Create Symbolic Links for Staging Environment
+        run: ln -sfn $QUAD_MODULES_TAG/ $QUAD_MODULES_STAGING
+
+  deploy-prod:
+    runs-on: self-hosted
+    needs: [deploy-staging]
+    steps:
+      - name: Create Symbolic Links for Prod Environment
+        run : ln -sfn $QUAD_MODULES_TAG/ $QUAD_MODULES_PROD

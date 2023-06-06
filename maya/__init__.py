@@ -1,0 +1,1 @@
+# Put this variable in Openpype Project Settings > Global > Add Custome Plugin Path
