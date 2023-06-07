@@ -11,8 +11,7 @@ class QuadPyblishModule(OpenPypeModule, IPluginPaths):
         super(QuadPyblishModule, self).__init__(manager, settings)
 
     def initialize(self, module_settings):
-        quad_pyblish_settings = module_settings[self.name]
-        self.enabled = quad_pyblish_settings["enabled"]
+        self.enabled = True
 
     def get_plugin_paths(self):
         """Implementation of abstract method for `IPluginPaths`."""
