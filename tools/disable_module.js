@@ -1,6 +1,6 @@
 db = connect('mongodb://localhost/openpype');
 
-all_settings = db.settings.find({ type: { $in: ['system_settings', 'system_settings_versioned'] } };
+all_settings = db.settings.find({ type: { $in: ['system_settings', 'system_settings_versioned'] } });
 
 all_settings.forEach(function (system_setting) {
 
