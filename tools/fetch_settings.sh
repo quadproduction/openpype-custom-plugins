@@ -48,34 +48,69 @@ change_root_dir () {
   mongosh --file ./tools/change_root_dir.js --eval "var rootDir='${1}'" --quiet
 }
 
+start_mongo () {
+  docker ps | grep openpype-mongo &> /dev/null
+  if [ $? -eq 0 ]; then
+    return 0
+  fi
+
+  docker ps -a | grep openpype-mongo &> /dev/null
+  if [ $? -eq 0 ]; then
+    docker start openpype-mongo
+    return 0
+  fi
+
+  docker ps -a | grep 27017 &> /dev/null
+  if [ $? -eq 0 ]; then
+    echo -e "${BRed}Port 27017 is already used${RST}"
+    return 1
+  fi
+
+  docker run -p 27017:27017 --name openpype-mongo -d mongo
+
+}
+
 # Main
 main () {
 
   echo -e "${BGreen}>>>${RST} Checking mongodump install ... \c"
-  if ! command -v mongodump &> /dev/null
-    then
-      echo -e "${BRed} NOT FOUND ${RST}"
-      exit 1
-    else
-      echo -e "${BGreen} OK ${RST}"
+  if command -v mongodump &> /dev/null; then
+    echo -e "${BGreen} OK ${RST}"
+  else
+    echo -e "${BRed} NOT FOUND ${RST}"
+    exit 1
   fi
 
   echo -e "${BGreen}>>>${RST} Checking mongorestore install ... \c"
-  if ! command -v mongorestore &> /dev/null
-    then
-      echo -e "${BRed} NOT FOUND ${RST}"
-      exit 1
-    else
-      echo -e "${BGreen} OK ${RST}"
+  if command -v mongorestore &> /dev/null; then
+    echo -e "${BGreen} OK ${RST}"
+  else
+    echo -e "${BRed} NOT FOUND ${RST}"
+    exit 1
   fi
 
   echo -e "${BGreen}>>>${RST} Checking mongoresh install ... \c"
-  if ! command -v mongosh &> /dev/null
-    then
-      echo -e "${BRed} NOT FOUND ${RST}"
-      exit 1
-    else
-      echo -e "${BGreen} OK ${RST}"
+  if command -v mongosh &> /dev/null; then
+    echo -e "${BGreen} OK ${RST}"
+  else
+    echo -e "${BRed} NOT FOUND ${RST}"
+    exit 1
+  fi
+
+  echo -e "${BGreen}>>>${RST} Checking docker install ... \c"
+  if command -v docker &> /dev/null; then
+    echo -e "${BGreen} OK ${RST}"
+  else
+    echo -e "${BRed} NOT FOUND ${RST}"
+    exit 1
+  fi
+
+  echo -e "${BGreen}>>>${RST} Start New mongoDB docker instance ... \c"
+  if start_mongo ; then
+    echo -e "${BGreen} OK ${RST}"
+  else
+    echo -e "${BRed} FAILED ${RST}"
+    exit 1
   fi
 
   echo -e "${BGreen}>>>${RST} Which settings do you want to fetch?"
@@ -147,6 +182,8 @@ main () {
   #     return 1
   #   fi
   # fi
+
+  echo -e "${BGreen}>>> Please set your Openpype URL to mongodb://localhost:27017 ${RST} "
 
 }
 
