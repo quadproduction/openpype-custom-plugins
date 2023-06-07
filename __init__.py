@@ -1,5 +1,13 @@
-from maya.publish.validate_arnold_camera_metadata import ValidateArnoldCameraMetadata
+""" Addon class definition and Settings definition must be imported here.
+
+If addon class or settings definition won't be here their definition won't
+be found by OpenPype discovery.
+"""
+
+from .addon import (
+    CustomPublishPlugins
+)
 
 __all__ = (
-    "ValidateArnoldCameraMetadata",
+    "CustomPublishPlugins",
 )
