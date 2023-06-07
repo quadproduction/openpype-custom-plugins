@@ -4,10 +4,10 @@ If addon class or settings definition won't be here their definition won't
 be found by OpenPype discovery.
 """
 
-from .custom_pyblish_module import (
-    CustomPyblishModule
+from .quad_pyblish_module import (
+    QuadPyblishModule,
 )
 
 __all__ = (
-    "CustomPyblishModule",
+    "QuadPyblishModule",
 )
