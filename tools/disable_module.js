@@ -1,12 +1,16 @@
 db = connect('mongodb://localhost/openpype');
 
-system_settings = db.settings.findOne({ type: 'system_settings' });
+all_settings = db.settings.find({ type: { $in: ['system_settings', 'system_settings_versioned'] } };
 
-if (system_settings['data']['modules'].hasOwnProperty(moduleName)) {
-    system_settings['data']['modules'][moduleName]['enabled'] = false;
-}
+all_settings.forEach(function (system_setting) {
 
-db.settings.updateOne(
-    { _id: system_settings['_id'] },
-    { $set: { "data": system_settings['data'] } },
-);
+    if (! system_setting['data']['modules'].hasOwnProperty(moduleName)) {
+        return;
+    }
+
+    system_setting['data']['modules'][moduleName]['enabled'] = false;
+    db.settings.updateOne(
+        { _id: system_setting['_id'] },
+        { $set: { "data": system_setting['data'] } },
+    );
+});
