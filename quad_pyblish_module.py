@@ -6,13 +6,10 @@ class QuadPyblishModule(OpenPypeModule, IPluginPaths):
     name = "quadpyblish"
 
     def __init__(self, manager, settings):
-        self._api = None
-        self.settings = settings
         super(QuadPyblishModule, self).__init__(manager, settings)
 
     def initialize(self, module_settings):
-        quad_pyblish_settings = module_settings[self.name]
-        self.enabled = quad_pyblish_settings["enabled"]
+        self.enabled = True
 
     @staticmethod
     def get_plugin_paths():
