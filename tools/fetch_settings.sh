@@ -100,7 +100,7 @@ main () {
   echo -e "${BGreen}>>>${RST} Checking docker install ... \c"
   if [ -S "/var/run/docker.sock" ]; then
     if stat -c "%a" /var/run/docker.sock | grep -q 660; then
-      if stat -c "%G" sudo chmod 666 /var/run/docker.sock | grep -q docker; then
+      if command -v docker &> /dev/null; then
         echo -e "${BGreen} OK ${RST}"
       else
         echo -e "${BRed} NOT FOUND ${RST}"
