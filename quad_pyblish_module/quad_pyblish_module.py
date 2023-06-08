@@ -1,4 +1,5 @@
 import os
+import glob
 from openpype.modules import OpenPypeModule, IPluginPaths
 
 
@@ -15,7 +16,25 @@ class QuadPyblishModule(OpenPypeModule, IPluginPaths):
 
     def get_plugin_paths(self):
         """Implementation of abstract method for `IPluginPaths`."""
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        return {
-            "publish": [os.path.join(current_dir, "plugins", "publish")]
+        # Regex to get all plugins from the plugins directory
+        current_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'plugins', '**', '*.py')
+
+        # Initialize all plugins which can be supported
+        plugins_dict = {
+            "publish": [],
+            "load": [],
+            "create": [],
+            "actions": [],
         }
+
+        # Find all plugins recursively
+        for filepath in glob.glob(current_dir, recursive=True):
+            if '__init__.py' in filepath:
+                continue
+
+            plugin_type = next((key for key in plugins_dict.keys() if key in filepath), None)
+
+            if os.path.dirname(filepath) not in plugins_dict[plugin_type]:
+                plugins_dict[plugin_type].append(os.path.dirname(filepath))
+
+        return plugins_dict
