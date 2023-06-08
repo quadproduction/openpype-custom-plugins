@@ -123,7 +123,7 @@ class ValidateArnoldCameraMetadata(pyblish.api.InstancePlugin):
                 )
 
         # Add post render mel command to validate metadata
-        post_mel_command = 'python("from openpype.hosts.maya.plugins.publish.validate_arnold_camera_metadata import ' \
+        post_mel_command = 'python("from quad_pyblish_module.plugins.maya.publish.validate_arnold_camera_metadata import ' \
                            'ValidateArnoldCameraMetadata; ValidateArnoldCameraMetadata().process(None)")'
         post_mel_current_value = lib.get_attribute('defaultRenderGlobals.postMel')
         if not post_mel_command in post_mel_current_value:
