@@ -19,6 +19,7 @@ log = logging.getLogger(__name__)
 class ApplyLook(openpype.hosts.maya.api.plugin.ReferenceLoader):
     families = ["look"]
     representations = ["ma"]
+    hosts = ["maya"]
 
     label = "FixLookLoader"
     order = -10
