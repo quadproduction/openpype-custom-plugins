@@ -1,0 +1,32 @@
+[
+    {
+        "type": "dict",
+        "key": "tvpaint",
+        "label": "TvPaint",
+        "collapsible": true,
+        "children": [
+            {
+                "type": "dict",
+                "key": "publish",
+                "label": "Publish",
+                "collapsible": true,
+                "children": [
+                    {
+                        "type": "dict",
+                        "key": "extract_psd",
+                        "label": "Extract PSD",
+                        "is_group": false,
+                        "checkbox_key": "enabled",
+                        "children": [
+                            {
+                                "type": "boolean",
+                                "key": "enabled",
+                                "label": "Enabled"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

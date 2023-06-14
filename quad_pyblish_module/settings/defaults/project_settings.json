@@ -1,0 +1,11 @@
+{
+    "project_settings/fix_custom_settings": {
+        "tvpaint": {
+            "publish":  {
+                "extract_psd":  {
+                    "enabled": false
+                }
+            }
+        }
+    }
+}
