@@ -5,6 +5,7 @@ import json
 import tempfile
 
 import pyblish.api
+from openpype.settings import get_project_settings
 from openpype.hosts.tvpaint.api import lib
 
 
@@ -14,7 +15,13 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     hosts = ["tvpaint"]
     families = ["renderLayer"]
 
+    project_name = os.environ['AVALON_PROJECT']
+    project_settings = get_project_settings(project_name)
+    is_enabled = project_settings['fix_custom_settings']['maya']['publish']['TestCustomPublish']['enabled']
+
     enabled = False
+    if is_enabled:
+        enabled = True
 
     def process(self, instance):
         george_script_lines = []
