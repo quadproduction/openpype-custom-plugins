@@ -18,7 +18,8 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     project_name = os.environ['AVALON_PROJECT']
     project_settings = get_project_settings(project_name)
     
-    enabled = project_settings['fix_custom_settings']['tvpaint']['publish']['ExtractPsd']['enabled']
+    enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
+        'ExtractPsd']['enabled']
 
     def process(self, instance):
         george_script_lines = []
