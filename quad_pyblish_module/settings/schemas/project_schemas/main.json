@@ -1,0 +1,12 @@
+{
+    "type": "dict",
+    "key": "fix_custom_settings",
+    "label": "Fix custom Settings",
+    "collapsible": true,
+    "children": [
+        {
+            "type": "template",
+            "name": "fix_custom_settings/tvpaint"
+        }
+    ]
+}
