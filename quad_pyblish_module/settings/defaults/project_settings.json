@@ -4,6 +4,9 @@
             "publish":  {
                 "ExtractPsd":  {
                     "enabled": false
+                },
+                "ExtractJson":  {
+                    "enabled": false
                 }
             }
         }
