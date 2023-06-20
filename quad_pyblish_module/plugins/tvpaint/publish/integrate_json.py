@@ -3,14 +3,15 @@ import re
 import os
 
 import pyblish.api
-from openpype.settings import get_project_settings
+from openpype.pipeline import OptionalPyblishPluginMixin
+from openpype.settings import get_project_settings, get_anatomy_settings
 
 
 class IntegrateJson(pyblish.api.ContextPlugin):
     """Integrate a JSON file."""
 
     label = "Integrate Json File"
-    order = pyblish.api.IntegratorOrder + 0.05
+    order = pyblish.api.IntegratorOrder - 0.05
 
     hosts = ["tvpaint"]
 
@@ -20,19 +21,19 @@ class IntegrateJson(pyblish.api.ContextPlugin):
     enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
         'ExtractJson']['enabled']
 
+    def __init__(self):
+        self.project_name = os.environ['AVALON_PROJECT']
+        self.project_settings = get_project_settings(self.project_name)
+
     def process(self, context):
-        tvpaint_json_data = context.data['tvpaint_export_json']
-        self.log.info("TVPAINT_JSON_DATA: {}".format(tvpaint_json_data))
-        for repre in ['tvpaint_export_json'].get('representations'):
-            if repre['name'] != 'png' or 'review' in repre['tags']:
-                continue
+        json_data = context.data['tvpaint_export_json']
+        json_representations = json_data.get('representations')
+        for instance in context:
+            instance_representations = instance.data.get('representations')
+            instance_representations.extend(json_representations)
 
-            if "renderLayer" in instance.data.get('families') and\
-                    'custom_published_path' not in instance.context.data.keys():  # noqa
-                instance.context.data['custom_published_path'] = repre['published_path']  # noqa
-                continue
-
-            layer_name = instance.data.get('layer_names')
+        """for repre in json_data.get('representations'):
+            layer_name = json_data.data.get('layer_names')
 
             if not layer_name:
                 continue
