@@ -69,7 +69,7 @@ class ExtractJson(pyblish.api.ContextPlugin):
         json_repres = {
             "name": "json",
             "ext": "json",
-            "files": op_json_filename,
+            "files": "tvpaint.json",
             "stagingDir": output_dir,
             "tags": ["json_data"]
         }
@@ -77,6 +77,8 @@ class ExtractJson(pyblish.api.ContextPlugin):
             context_data["representations"].append(json_repres)
         else:
             context_data["representations"] = [json_repres]
+
+
 
         self.log.info(context_data)
 
