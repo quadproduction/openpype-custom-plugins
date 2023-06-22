@@ -1,6 +1,5 @@
 import copy
 import pyblish.api
-from openpype.lib import prepare_template_data
 
 
 class CollectJsonInstances(pyblish.api.InstancePlugin):
@@ -11,7 +10,6 @@ class CollectJsonInstances(pyblish.api.InstancePlugin):
 
     def process(self, instance):
         context = instance.context
-        creator_identifier = instance.data["creator_identifier"]
         self._collect_data_for_json(instance)
 
         subset_name = instance.data["subset"]
@@ -24,7 +22,6 @@ class CollectJsonInstances(pyblish.api.InstancePlugin):
 
     def _collect_data_for_json(self, instance):
         instance.data['families'].append('imagesequence')
-        creator_attributes = instance.data['creator_attributes']
         instance.data["layers"] = copy.deepcopy(
             instance.context.data['layersData']
         )
