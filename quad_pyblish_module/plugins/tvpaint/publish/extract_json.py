@@ -15,6 +15,7 @@ class ExtractJson(pyblish.api.ContextPlugin):
     order = pyblish.api.ExtractorOrder + 0.01
     label = "Extract JSON"
     hosts = ["tvpaint"]
+    families = ["imagesequence"]
 
     project_name = os.environ['AVALON_PROJECT']
     project_settings = get_project_settings(project_name)
@@ -65,7 +66,7 @@ class ExtractJson(pyblish.api.ContextPlugin):
         }
 
         for instance in context:
-            if instance.data.get('family') == 'json':
+            if instance.data.get('family') == 'imagesequence':
                 instance.data.get('representations').append(json_repres)
             self.log.info("REPRESENTATIONS: {}".format(instance.data.get('representations')))
 

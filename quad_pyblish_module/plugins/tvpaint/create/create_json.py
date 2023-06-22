@@ -4,8 +4,8 @@ from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintJsonCreator(TVPaintAutoCreator):
-    family = "json"
-    identifier = "json"
+    family = "imagesequence"
+    identifier = "imagesequence"
     label = "Json"
     icon = "fa.file-o"
 

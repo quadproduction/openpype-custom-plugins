@@ -7,7 +7,7 @@ class CollectJsonInstances(pyblish.api.InstancePlugin):
     label = "Collect Json Instances"
     order = pyblish.api.CollectorOrder - 0.41
     hosts = ["tvpaint"]
-    families = ["json"]
+    families = ["imagesequence"]
 
     def process(self, instance):
         context = instance.context
@@ -23,7 +23,7 @@ class CollectJsonInstances(pyblish.api.InstancePlugin):
         )
 
     def _collect_data_for_json(self, instance):
-        instance.data['families'].append('json')
+        instance.data['families'].append('imagesequence')
         creator_attributes = instance.data['creator_attributes']
         instance.data["layers"] = copy.deepcopy(
             instance.context.data['layersData']
