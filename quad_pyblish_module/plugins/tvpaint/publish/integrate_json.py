@@ -26,13 +26,14 @@ class IntegrateJson(pyblish.api.ContextPlugin):
         self.project_settings = get_project_settings(self.project_name)
 
     def process(self, context):
-        json_data = context.data['tvpaint_export_json']
-        json_representations = json_data.get('representations')
+        # json_data = context.data['tvpaint_export_json']
+        # json_representations = json_data.get('representations')
         for instance in context:
             instance_representations = instance.data.get('representations')
-            instance_representations.extend(json_representations)
+            self.log.info("REPRESENTATIONS: {}".format(instance_representations))
+            """instance_representations.extend(json_representations)
 
-        """for repre in json_data.get('representations'):
+        for repre in json_data.get('representations'):
             layer_name = json_data.data.get('layer_names')
 
             if not layer_name:
