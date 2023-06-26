@@ -30,8 +30,8 @@ class IntegrateJson(pyblish.api.ContextPlugin):
                     self._move_json_file(repre)
 
                 if "tags" in repre.keys() and "json_png" in repre["tags"]:
-                    self.log.info("REPRE_NAME: {}".format(repre['name']))
                     self._modify_file_names(repre, json_repre)
+                    self._modify_representation_files(repre)
 
     def _move_json_file(self, representation):
         published_path, file_name = os.path.split(representation['published_path'])
@@ -65,3 +65,19 @@ class IntegrateJson(pyblish.api.ContextPlugin):
             json.dump(tvpaint_data, new_json, indent=4)
             new_json.truncate()
 
+    def _modify_representation_files(self, representation):
+        published_path = representation['published_path']
+        file_basename = os.path.basename(published_path).split('.')[0]
+
+        if not isinstance(representation['files'], list):
+            basename = os.path.basename(representation['files'])
+            old_name = basename.split('.')[0]
+            representation['files'] = representation['files'].replace(old_name, file_basename)
+        else:
+            new_files = []
+            for file in representation['files']:
+                basename = os.path.basename(file)
+                old_name = basename.split('.')[0]
+                new_file = file.replace(old_name, file_basename)
+                new_files.append(new_file)
+            representation['files'] = new_files
