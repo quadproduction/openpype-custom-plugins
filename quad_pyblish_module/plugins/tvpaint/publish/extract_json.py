@@ -77,7 +77,8 @@ class ExtractJson(pyblish.api.ContextPlugin):
                 "name": subfolder,
                 "ext": "png",
                 "files": files,
-                "stagingDir": output
+                "stagingDir": output,
+                "tags": ["json_png"]
             }
             for instance in context:
                 if instance.data.get('family') == "imagesequence":
