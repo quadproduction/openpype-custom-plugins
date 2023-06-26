@@ -8,6 +8,13 @@
                 "ExtractJson":  {
                     "enabled": false
                 }
+            },
+            "create": {
+                "create_json": {
+                    "enabled": true,
+                    "default_variant": "Main",
+                    "default_variants": []
+                }
             }
         }
     }

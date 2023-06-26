@@ -10,12 +10,12 @@ class TVPaintJsonCreator(TVPaintAutoCreator):
     icon = "fa.file-o"
 
     def apply_settings(self, project_settings, system_settings):
-        """plugin_settings = (
-            project_settings["tvpaint"]["create"]["create_workfile"]
+        plugin_settings = (
+            project_settings["fix_custom_settings"]["tvpaint"]["create"][
+                "create_json"]
         )
         self.default_variant = plugin_settings["default_variant"]
-        self.default_variants = plugin_settings["default_variants"]"""
-        self.default_variant = "Main"
+        self.default_variants = plugin_settings["default_variants"]
 
     def create(self):
         existing_instance = None
