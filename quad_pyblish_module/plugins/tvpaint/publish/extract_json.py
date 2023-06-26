@@ -74,7 +74,7 @@ class ExtractJson(pyblish.api.ContextPlugin):
                 files = files[0]
 
             files_repre = {
-                "name": "png",
+                "name": subfolder,
                 "ext": "png",
                 "files": files,
                 "stagingDir": output
@@ -82,6 +82,7 @@ class ExtractJson(pyblish.api.ContextPlugin):
             for instance in context:
                 if instance.data.get('family') == "imagesequence":
                     instance.data.get('representations').append(files_repre)
+                    self.log.debug("Add json representation: {}".format(files_repre))
 
     def get_files(self, json_path):
         all_links = {}
