@@ -21,7 +21,7 @@ BPurple='\033[1;35m'      # Purple
 BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
-
+script_dir=$(dirname "$0")
 
 dump_mongo_settings () {
     HOST=$1 && PORT=$2
@@ -30,7 +30,7 @@ dump_mongo_settings () {
 
 disable_module () {
   # echo "Disable module ${1}"
-  mongosh --file ./tools/disable_module.js --quiet --eval "var moduleName='${1}'"
+  mongosh --file ${script_dir}/disable_module.js --quiet --eval "var moduleName='${1}'"
 }
 
 change_root_dir () {
@@ -45,7 +45,7 @@ change_root_dir () {
     mkdir -p "$1"
   fi
 
-  mongosh --file ./tools/change_root_dir.js --eval "var rootDir='${1}'" --quiet
+  mongosh --file ${script_dir}/change_root_dir.js --eval "var rootDir='${1}'" --quiet
 }
 
 start_mongo () {
@@ -192,6 +192,9 @@ main () {
   #     return 1
   #   fi
   # fi
+
+  # demander si on veut creer un nouveau project test
+  # read -p "    Do you want to create a new project ? (y/n) " choice
 
   echo -e "${BGreen}>>> Please set your Openpype URL to mongodb://localhost:27017 ${RST} "
 
