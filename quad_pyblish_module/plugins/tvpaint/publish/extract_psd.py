@@ -13,11 +13,11 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     order = pyblish.api.ExtractorOrder + 0.02
     label = "Extract PSD"
     hosts = ["tvpaint"]
-    families = ["renderLayer"]
+    families = ["renderLayer", "review"]
 
     project_name = os.environ['AVALON_PROJECT']
     project_settings = get_project_settings(project_name)
-    
+
     enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
         'ExtractPsd']['enabled']
 
@@ -43,9 +43,13 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                     tempfile.mkdtemp(prefix="tvpaint_export_json_psd_")
                 ).replace("\\", "/")
 
-            new_filenames = []
+            if not isinstance(repre['files'], list):
+                files = [repre['files']]
+            else:
+                files = repre['files']
 
-            for filename in repre['files']:
+            new_filenames = []
+            for filename in files:
                 new_filename = os.path.splitext(filename)[0]
                 dst_filepath = os.path.join(repre["stagingDir"], new_filename)
                 new_filenames.append(new_filename + '.psd')
@@ -57,6 +61,10 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                         int(new_filename) - 1
                     )
                 )
+
+            # Convert list to str if there's only one item
+            if len(new_filenames) == 1:
+                new_filenames = "".join(new_filenames)
 
             new_psd_repres.append(
                 {
