@@ -49,6 +49,14 @@ change_root_dir () {
 }
 
 start_mongo () {
+  # make sur that /mnt/data/mongodb/db/ exists
+  if [ ! -d "/mnt/data" ]; then
+    echo -e "${BRed}!!!${RST} /mnt/data does not exist"
+    return 1
+  else
+    mkdir -p "/mnt/data/mongodb/db"
+  fi
+
   docker ps | grep openpype-mongo &> /dev/null
   if [ $? -eq 0 ]; then
     return 0
