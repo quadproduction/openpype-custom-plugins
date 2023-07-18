@@ -26,7 +26,7 @@ jobs:
       - name: Create Symbolic Links for Staging Environment
         run: |
           cd $QUAD_MODULES_STAGING
-          ln -sfn ${{ github.ref_name }} STAGING
+          ln -sfn ${{ github.ref_name }} TEST
 
   deploy-prod:
     runs-on: self-hosted
@@ -35,4 +35,4 @@ jobs:
       - name: Create Symbolic Links for Prod Environment
         run : |
           cd $QUAD_MODULES_PROD
-          ln -sfn ${{ github.ref_name }} PROD
+          ln -sfn ${{ github.ref_name }} TEST_2
