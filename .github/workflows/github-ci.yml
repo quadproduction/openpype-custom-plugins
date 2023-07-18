@@ -8,7 +8,7 @@ on:
 
 env:
   QUAD_MODULES: "/prod/softprod/apps/openpype/PLUGINS/quad"
-  QUAD_MODULES_TAG: ${QUAD_MODULES}/${{ github.ref_name }}
+  QUAD_MODULES_TAG: "/prod/softprod/apps/openpype/PLUGINS/quad/${{ github.ref_name }}
 
 jobs:
   deploy-staging:
