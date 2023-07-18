@@ -34,13 +34,6 @@ disable_module () {
 }
 
 change_root_dir () {
-
-  # verifie que /mnt/data existe
-  if [ ! -d "/mnt/data" ]; then
-    echo -e "${BRed}!!!${RST} /mnt/data does not exist"
-    return 1
-  fi
-
   if [ ! -d "$1" ]; then
     mkdir -p "$1"
   fi
@@ -49,6 +42,14 @@ change_root_dir () {
 }
 
 start_mongo () {
+  # make sur that /mnt/data/mongodb/db/ exists
+  if [ ! -d "/mnt/data" ]; then
+    echo -e "${BRed}!!!${RST} /mnt/data does not exist"
+    return 1
+  elif [ ! -d "/mnt/data/mongodb/db" ]; then
+    mkdir -p "/mnt/data/mongodb/db"
+  fi
+
   docker ps | grep openpype-mongo &> /dev/null
   if [ $? -eq 0 ]; then
     return 0
@@ -66,7 +67,7 @@ start_mongo () {
     return 1
   fi
 
-  docker run -p 27017:27017 --name openpype-mongo -d mongo
+  docker run -p 27017:27017 -v /mnt/data/mongodb/db/ --name openpype-mongo -d mongo
 
 }
 
@@ -149,7 +150,7 @@ main () {
       return 1
   fi
 
-  RootDir=/mnt/data/openpype/$COMPAGNY/project
+  RootDir=${HOME}/openpype/$COMPAGNY/project
   echo -e "${BGreen}>>>${RST} Change Default RootDir to ${RootDir} ... \c"
   if change_root_dir $RootDir; then
     echo -e "${BGreen}>>>${RST} Change Default RootDir to ${RootDir} ... ${BGreen}OK${RST}"
