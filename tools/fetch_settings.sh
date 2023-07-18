@@ -66,7 +66,7 @@ start_mongo () {
     return 1
   fi
 
-  docker run -p 27017:27017 --name openpype-mongo -d mongo
+  docker run -p 27017:27017 -v /mnt/data/mongodb/db/ --name openpype-mongo -d mongo
 
 }
 
