@@ -34,13 +34,6 @@ disable_module () {
 }
 
 change_root_dir () {
-
-  # verifie que /mnt/data existe
-  if [ ! -d "/mnt/data" ]; then
-    echo -e "${BRed}!!!${RST} /mnt/data does not exist"
-    return 1
-  fi
-
   if [ ! -d "$1" ]; then
     mkdir -p "$1"
   fi
@@ -53,7 +46,7 @@ start_mongo () {
   if [ ! -d "/mnt/data" ]; then
     echo -e "${BRed}!!!${RST} /mnt/data does not exist"
     return 1
-  else
+  elif [ ! -d "/mnt/data/mongodb/db" ]; then
     mkdir -p "/mnt/data/mongodb/db"
   fi
 
@@ -157,7 +150,7 @@ main () {
       return 1
   fi
 
-  RootDir=/mnt/data/openpype/$COMPAGNY/project
+  RootDir=${HOME}/openpype/$COMPAGNY/project
   echo -e "${BGreen}>>>${RST} Change Default RootDir to ${RootDir} ... \c"
   if change_root_dir $RootDir; then
     echo -e "${BGreen}>>>${RST} Change Default RootDir to ${RootDir} ... ${BGreen}OK${RST}"
