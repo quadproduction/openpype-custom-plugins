@@ -8,9 +8,7 @@ on:
 
 env:
   QUAD_MODULES: "/prod/softprod/apps/openpype/PLUGINS/quad"
-  # QUAD_MODULES_TAG: "/prod/softprod/apps/openpype/PLUGINS/quad/${{ github.ref_name }}"
-  # QUAD_MODULES_STAGING: "/prod/softprod/apps/openpype/PLUGINS/quad/STAGING"
-  # QUAD_MODULES_PROD: "/prod/softprod/apps/openpype/PLUGINS/quad/PROD"
+  QUAD_MODULES_TAG: $QUAD_MODULES/${{ github.ref_name }}
 
 jobs:
   deploy-staging:
@@ -19,15 +17,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Print QUAD_MODULES_TAG
-        run: echo ${QUAD_MODULES}/${{ github.ref_name }}
+        run: echo ${QUAD_MODULES_TAG}
 
       - name: Copy the Repository
-        run: rsync -rptl . $QUAD_MODULES/${{ github.ref_name }}
+        run: rsync -rptl . $QUAD_MODULES_TAG
 
       - name: Create Symbolic Links for Staging Environment
         run: |
           cd $QUAD_MODULES
-          ln -sfn ${{ github.ref_name }} TEST
+          ln -sfn ${{ github.ref_name }} STAGING
 
   deploy-prod:
     runs-on: self-hosted
@@ -36,4 +34,4 @@ jobs:
       - name: Create Symbolic Links for Prod Environment
         run : |
           cd $QUAD_MODULES
-          ln -sfn ${{ github.ref_name }} TEST_2
+          ln -sfn ${{ github.ref_name }} PROD
