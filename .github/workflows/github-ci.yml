@@ -1,37 +1,51 @@
-name: RSync Process
+name: ➡✔ Deploy
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - '*'
-
+    inputs:
+      bump:
+        type: choice
+        options: 
+          - patch
+          - minor
+          - major
+        description: Choose your version to bump
+      
 env:
-  QUAD_MODULES: "/prod/softprod/apps/openpype/PLUGINS/quad"
-  QUAD_MODULES_TAG: "/prod/softprod/apps/openpype/PLUGINS/quad/${{ github.ref_name }}"
-
+  DESTINATION: "/prod/softprod/apps/openpype/PLUGINS/quad"
+  
 jobs:
-  deploy-staging:
+
+  build-and-publish:
     runs-on: self-hosted
-    # if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v3
-      - name: Print QUAD_MODULES_TAG
-        run: echo ${QUAD_MODULES_TAG}
 
-      - name: Copy the Repository
-        run: rsync -rptl . $QUAD_MODULES_TAG
-
-      - name: Create Symbolic Links for Staging Environment
-        run: |
-          cd $QUAD_MODULES
-          ln -sfn ${{ github.ref_name }} STAGING
-
-  deploy-prod:
+      - name: ⬆️🆙🏷️ Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: ""
+          default_bump: ${{ github.event.inputs.bump || 'patch' }} 
+        
+      - name: 📤➡️📥 Copy the Repository
+        run: rsync -rptl . $DESTINATION/${{ steps.tag_version.outputs.new_tag }}
+    outputs:
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+      
+  deploy-staging:
     runs-on: self-hosted
-    needs: [deploy-staging]
+    environment: staging
+    needs: build-and-publish
     steps:
-      - name: Create Symbolic Links for Prod Environment
-        run : |
-          cd $QUAD_MODULES
-          ln -sfn ${{ github.ref_name }} PROD
+      - name: 📁↔️📂Create Symbolic Links for Staging Environment
+        run: cd $DESTINATION && ln -sfn ${{ needs.build-and-publish.outputs.new_tag }} STAGING
+
+  deploy-production:
+    runs-on: self-hosted
+    environment: production
+    needs: [build-and-publish, deploy-staging]
+    steps:
+      - name: 📁↔️📂Create Symbolic Links for Prod Environment
+        run : cd $DESTINATION && ln -sfn ${{ needs.build-and-publish.outputs.new_tag }} PROD
