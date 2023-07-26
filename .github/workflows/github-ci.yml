@@ -30,8 +30,12 @@ jobs:
           tag_prefix: ""
           default_bump: ${{ github.event.inputs.bump || 'patch' }} 
         
+      - name: test
+        run: ls -la $DESTINATION 
+        
       - name: 📤➡️📥 Copy the Repository
         run: rsync -rptl . $DESTINATION/${{ steps.tag_version.outputs.new_tag }}
+        
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
       
