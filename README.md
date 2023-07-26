@@ -1,4 +1,4 @@
-# Quad-Plugins Repository
+# openpype-custom-plugins Repository
 
 Welcome to the **Quad-Plugins** repository! This repository contains a collection of plugins and modules designed for use with OpenPype, an open-source pipeline management tool. These plugins are developed to streamline various actions in the pipeline, such as creating, loading, and publishing steps. The repository also includes a module named **quad_pyblish_module**, which is intended for managing various plugins specifically tailored for OpenPype.
 
@@ -8,7 +8,7 @@ To use the plugins from this repository. Follow the steps below to install and i
 
 1. Clone the repository to your local machine using the following command:
 
-  ```git clone https://github.com/quadproduction/quad-plugins```
+  ```git clone https://github.com/quadproduction/openpype-custom-plugins```
 
 2. Locate the OpenPypeAddOn Paths of your OpenPype installation : 
 
