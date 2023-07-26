@@ -12,7 +12,7 @@ on:
         description: Choose your version to bump
       
 env:
-  DESTINATION: "/prod/softprod/apps/openpype/PLUGINS/quad"
+  DESTINATION: "/prod/softprod/apps/openpype/openpype_custom_plugins"
   
 jobs:
 
