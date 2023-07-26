@@ -10,9 +10,10 @@ on:
           - minor
           - major
         description: Choose your version to bump
+  push:
       
 env:
-  DESTINATION: "/prod/softprod/apps/openpype/openpype_custom_plugins"
+  DESTINATION: /prod/softprod/apps/openpype/openpype_custom_plugins
   
 jobs:
 
