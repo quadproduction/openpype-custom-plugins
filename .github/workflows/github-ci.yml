@@ -10,7 +10,6 @@ on:
           - minor
           - major
         description: Choose your version to bump
-  push:
       
 env:
   DESTINATION: /prod/softprod/apps/openpype/openpype_custom_plugins
@@ -29,10 +28,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: ""
           default_bump: ${{ github.event.inputs.bump || 'patch' }} 
-        
-      - name: test
-        run: ls -la $DESTINATION 
-        
+
       - name: 📤➡️📥 Copy the Repository
         run: rsync -rptl . $DESTINATION/${{ steps.tag_version.outputs.new_tag }}
         
