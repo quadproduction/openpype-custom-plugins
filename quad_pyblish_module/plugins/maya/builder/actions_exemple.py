@@ -10,5 +10,5 @@ class ActionExemple(BuilderAction):
     hosts = ["maya"]
     label = "Exemple Action"
 
-    def process(self, context, name=None, namespace=None, options=None):
+    def load(self, context, name=None, namespace=None, options=None):
         print(f"{'#' * 20} Exemple action {'#' * 20}")
