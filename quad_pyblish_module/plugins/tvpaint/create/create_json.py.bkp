@@ -1,3 +1,6 @@
+# This module has been backup because it also load in others DCC and 
+# it is not used anymore.
+
 from openpype.client import get_asset_by_name
 from openpype.pipeline import CreatedInstance
 from openpype.pipeline.create import Creator
