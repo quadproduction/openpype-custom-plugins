@@ -1,4 +1,4 @@
-# This module has been backup because it also load in others DCC and 
+# This module has been backup because it also load in others DCC and
 # it is not used anymore.
 
 from openpype.client import get_asset_by_name
@@ -6,7 +6,7 @@ from openpype.pipeline import CreatedInstance
 from openpype.pipeline.create import Creator
 
 
-class TVPaintJsonCreator(Creator): 
+class TVPaintJsonCreator(Creator):
     family = "imagesequence"
     identifier = "imagesequence"
     label = "Json"
