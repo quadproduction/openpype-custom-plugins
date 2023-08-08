@@ -1,12 +1,12 @@
-# This module has been backup because it also load in others DCC and 
+# This module has been backup because it also load in others DCC and
 # it is not used anymore.
 
 from openpype.client import get_asset_by_name
 from openpype.pipeline import CreatedInstance
-from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
+from openpype.pipeline.create import Creator
 
 
-class TVPaintJsonCreator(TVPaintAutoCreator):
+class TVPaintJsonCreator(Creator):
     family = "imagesequence"
     identifier = "imagesequence"
     label = "Json"
@@ -20,7 +20,7 @@ class TVPaintJsonCreator(TVPaintAutoCreator):
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants = plugin_settings["default_variants"]
 
-    def create(self):
+    def create(self, subset_name, instance_data, pre_create_data):
         existing_instance = None
         for instance in self.create_context.instances:
             if instance.creator_identifier == self.identifier:
