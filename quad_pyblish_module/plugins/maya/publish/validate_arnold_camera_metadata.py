@@ -13,6 +13,7 @@ class ValidateArnoldCameraMetadata(pyblish.api.InstancePlugin):
     hosts = ["maya"]
     families = ["renderlayer"]
     label = "Validate Arnold Camera Metadata"
+    optional = True
 
     def set_metadata_attr(self, attribute, attribute_type, name, value):
         """ This make sure that no crash happens, as the script is
