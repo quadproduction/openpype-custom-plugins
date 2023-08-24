@@ -7,6 +7,10 @@
         {
             "type": "template",
             "name": "fix_custom_settings/tvpaint"
+        },
+        {
+            "type": "template",
+            "name": "fix_custom_settings/maya"
         }
     ]
 }

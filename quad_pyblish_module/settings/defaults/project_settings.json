@@ -16,6 +16,13 @@
                     "default_variants": []
                 }
             }
+        },
+        "maya": {
+            "load": {
+                "ApplyLook": {
+                    "subsets": []
+                }
+            }
         }
     }
 }

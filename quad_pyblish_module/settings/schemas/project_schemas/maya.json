@@ -1,0 +1,34 @@
+[
+    {
+        "type": "dict",
+        "key": "maya",
+        "label": "Maya",
+        "collapsible": true,
+        "children": [
+            {
+                "type": "dict",
+                "key": "load",
+                "label": "Load",
+                "collapsible": true,
+                "children": [
+                    {
+                        "type": "dict",
+                        "key": "ApplyLook",
+                        "label": "Apply Look",
+                        "collapsible": true,
+                        "children": [
+                            {
+                                "type": "list",
+                                "key": "subsets",
+                                "label": "Subsets",
+                                "object_type": {
+                                    "type": "text"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
