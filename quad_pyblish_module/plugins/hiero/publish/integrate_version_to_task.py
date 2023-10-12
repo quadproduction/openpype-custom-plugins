@@ -11,6 +11,14 @@ class IntegrateVersionToTask(api.ContextPlugin):
     optional = False
 
     def get_all_task_types(self, project):
+        """Get all task types from the project schema.
+
+        :param project: The Ftrack project Entity.
+        :type project: ftrack Project Object
+        :return: A dictionary containing all task types.
+        :rtype: dict<ftrackTaskType>
+
+        """
         tasks = {}
         proj_template = project['project_schema']
         temp_task_types = proj_template['_task_type_schema']['types']
@@ -22,7 +30,12 @@ class IntegrateVersionToTask(api.ContextPlugin):
         return tasks
 
     def process(self, context):
-        # Get Usefull Data
+        """Process the Pyblish context.
+
+        :param context: The Pyblish context.
+        :type context: pyblish.api.Context
+        """
+        # Get Data we need
         task_type = context.data.get('task').lower()
         ftrack_session = context.data.get('ftrackSession')
         ftrack_project = context.data.get('ftrackProject')
@@ -32,6 +45,7 @@ class IntegrateVersionToTask(api.ContextPlugin):
             self.log.info('Ftrack session is not created.')
             return
 
+        # Build Plugin dict list to analyze
         to_analyze_lst = []
         for result_dict in context.data.get('results'):
             if 'Collect OTIO Review' in result_dict['plugin'].label:
@@ -42,7 +56,8 @@ class IntegrateVersionToTask(api.ContextPlugin):
             ftrack_asset_versions = to_analyze['instance'].data['ftrackIntegratedAssetVersions']
 
             # Check if confo task already exists in ftrack
-            is_task_exist = ftrack_session.query('Task where name is "{0}" and parent.id is {1}'.format(task_type, ftrack_shot_version['id'])).first()
+            is_task_exist = ftrack_session.query(
+                'Task where name is "{0}" and parent.id is {1}'.format(task_type, ftrack_shot_version['id'])).first()
             if not is_task_exist:
                 new_task = ftrack_session.create(
                     'Task',
