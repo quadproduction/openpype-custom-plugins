@@ -128,7 +128,6 @@ class TVPaintSceneRenderCreator(TVPaintAutoCreator):
         )
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants =  plugin_settings["default_variants"]
-        self.mark_for_review = True
         self.exports_types = ['camera', 'scene']
         self.export_type = self.exports_types[0]
 
