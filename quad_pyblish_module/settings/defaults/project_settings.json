@@ -18,8 +18,7 @@
                 "create_playblast": {
                     "enabled": true,
                     "default_variant": "Main",
-                    "default_variants": [],
-                    "export_type": "camera"
+                    "default_variants": []
                 }
             }
         }

@@ -124,14 +124,13 @@ class TVPaintSceneRenderCreator(TVPaintAutoCreator):
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
-            project_settings["tvpaint"]["create"]["create_playblast"]
+            project_settings["fix_custom_settings"]["tvpaint"]["create"]["create_playblast"]
         )
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants =  plugin_settings["default_variants"]
-        self.mark_for_review = plugin_settings["mark_for_review"]
-        self.default_pass_name = plugin_settings["default_pass_name"]
+        self.mark_for_review = True
         self.exports_types = ['camera', 'scene']
-        self.export_type = exports_types[0]
+        self.export_type = self.exports_types[0]
 
 
     def _create_new_instance(self):
@@ -219,11 +218,6 @@ class TVPaintSceneRenderCreator(TVPaintAutoCreator):
 
     def get_instance_attr_defs(self):
         return [
-            BoolDef(
-                "mark_for_review",
-                label="Review",
-                default=self.mark_for_review
-            ),
             EnumDef(
                 "export_type",
                 self.exports_types,

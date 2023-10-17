@@ -98,16 +98,6 @@
                                 "object_type": {
                                     "type": "text"
                                 }
-                            },
-                            {
-                                "type": "enum",
-                                "key": "export_type",
-                                "label": "Export type",
-                                "multiselection": false,
-                                "enum_items": [
-                                    {"PROJECT": "project"},
-                                    {"CAMERA": "camera"}
-                                ]
                             }
                         ]
                     }
