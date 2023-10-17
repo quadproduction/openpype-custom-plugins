@@ -131,7 +131,6 @@ class TVPaintSceneRenderCreator(TVPaintAutoCreator):
         self.exports_types = ['camera', 'scene']
         self.export_type = self.exports_types[0]
 
-
     def _create_new_instance(self):
         create_context = self.create_context
         host_name = create_context.host_name
