@@ -28,6 +28,11 @@ dump_mongo_settings () {
     mongodump --host=$HOST --port=$PORT --db=openpype --collection=settings --archive --quiet | mongorestore --host="localhost" --port=27017 --archive --drop --quiet --stopOnError
 }
 
+dump_projects () {
+    HOST=$1 && PORT=$2
+    mongodump --host=$HOST --port=$PORT --db=avalon --archive --quiet | mongorestore --host="localhost" --port=27017 --archive --drop --quiet --stopOnError
+}
+
 disable_module () {
   # echo "Disable module ${1}"
   mongosh --file ${script_dir}/disable_module.js --quiet --eval "var moduleName='${1}'"
@@ -150,6 +155,17 @@ main () {
       return 1
   fi
 
+  read -p "    Do you want to fetch projects ? (y/n) " choice
+  if [[ $choice == "y" ]]; then
+    echo -e "${BGreen}>>>${RST} Fetching Openpype projects from ${Yellow}${HOST}:${PORT}${RST}... \c"
+    if dump_projects $HOST $PORT; then
+        echo -e "${BGreen}OK${RST}"
+    else
+        echo -e "${BRed} FAILED ${RST}"
+        return 1
+    fi
+  fi
+
   RootDir=${HOME}/openpype/$COMPAGNY/project
   echo -e "${BGreen}>>>${RST} Change Default RootDir to ${RootDir} ... \c"
   if change_root_dir $RootDir; then
@@ -183,16 +199,16 @@ main () {
     return 1
   fi
 
-  # read -p "    Do you want to fetch a project ? (y/n) " choice
-  # if [[ $choice == "y" ]]; then
-  #   echo -e "${BGreen}>>>${RST} Fetch Project ... \c"
-  #   if mongosh --file ./tools/fetch_project.js; then
-  #     echo -e "${BGreen}>>>${RST} Fetch Project ... ${BGreen}OK${RST}"
-  #   else
-  #     echo -e "${BGreen}>>>${RST} Fetch Project ... ${BRed}FAILED${RST}"
-  #     return 1
-  #   fi
-  # fi
+#   read -p "    Do you want to fetch a project ? (y/n) " choice
+#   if [[ $choice == "y" ]]; then
+#     echo -e "${BGreen}>>>${RST} Fetch Project ... \c"
+#     if mongosh --file ./tools/fetch_project.js; then
+#       echo -e "${BGreen}>>>${RST} Fetch Project ... ${BGreen}OK${RST}"
+#     else
+#       echo -e "${BGreen}>>>${RST} Fetch Project ... ${BRed}FAILED${RST}"
+#       return 1
+#     fi
+#   fi
 
   # demander si on veut creer un nouveau project test
   # read -p "    Do you want to create a new project ? (y/n) " choice
