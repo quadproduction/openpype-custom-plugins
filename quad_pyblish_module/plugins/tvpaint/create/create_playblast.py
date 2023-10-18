@@ -118,14 +118,15 @@ class TVPaintSceneRenderCreator(TVPaintAutoCreator):
     icon = "fa.file-image-o"
 
     # Settings
-    default_pass_name = "beauty"
     mark_for_review = True
-    active_on_create = False
+    active_on_create = True
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
             project_settings["fix_custom_settings"]["tvpaint"]["create"]["create_playblast"]
         )
+        self.mark_for_review = plugin_settings["mark_for_review"]
+        self.active_on_create = plugin_settings["active_on_create"]
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants =  plugin_settings["default_variants"]
         self.exports_types = ['camera', 'scene']
@@ -216,6 +217,11 @@ class TVPaintSceneRenderCreator(TVPaintAutoCreator):
 
     def get_instance_attr_defs(self):
         return [
+            BoolDef(
+                "mark_for_review",
+                label="Review by default",
+                default=self.mark_for_review
+            ),
             EnumDef(
                 "export_type",
                 self.exports_types,

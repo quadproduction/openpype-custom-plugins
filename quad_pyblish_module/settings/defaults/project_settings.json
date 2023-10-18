@@ -17,6 +17,8 @@
                 },
                 "create_playblast": {
                     "enabled": true,
+                    "active_on_create": true,
+                    "mark_for_review": true,
                     "default_variant": "Main",
                     "default_variants": []
                 }
