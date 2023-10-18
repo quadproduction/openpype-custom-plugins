@@ -152,12 +152,12 @@ class TVPaintSceneRenderCreator(TVPaintAutoCreator):
             "task": task_name,
             "variant": self.default_variant,
             "creator_attributes": {
-                "mark_for_review": True,
+                "mark_for_review": self.mark_for_review,
                 "export_type": self.export_type
             },
-            "label": self._get_label(subset_name)
+            "label": self._get_label(subset_name),
+            "active": self.active_on_create
         }
-        data["active"] = False
 
         new_instance = CreatedInstance(
             self.family, subset_name, data, self
