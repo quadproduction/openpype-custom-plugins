@@ -140,8 +140,8 @@ main () {
     PORT=27017
   elif [[ $choice == "2" || $choice == "fixstudio" ]]; then
     COMPAGNY="fixstudio"
-    HOST="dockerquad"
-    PORT=27027
+    HOST="fixmongodb"
+    PORT=27017
   else
     echo -e "${BRed}!!!${RST} Invalid choice"
     return 1
