@@ -1,113 +1,11 @@
-"""Render Layer and Passes creators.
-
-Render layer is main part which is represented by group in TVPaint. All TVPaint
-layers marked with that group color are part of the render layer. To be more
-specific about some parts of layer it is possible to create sub-sets of layer
-which are named passes. Render pass consist of layers in same color group as
-render layer but define more specific part.
-
-For example render layer could be 'Bob' which consist of 5 TVPaint layers.
-- Bob has 'head' which consist of 2 TVPaint layers -> Render pass 'head'
-- Bob has 'body' which consist of 1 TVPaint layer -> Render pass 'body'
-- Bob has 'arm' which consist of 1 TVPaint layer -> Render pass 'arm'
-- Last layer does not belong to render pass at all
-
-Bob will be rendered as 'beauty' of bob (all visible layers in group).
-His head will be rendered too but without any other parts. The same for body
-and arm.
-
-What is this good for? Compositing has more power how the renders are used.
-Can do transforms on each render pass without need to modify a re-render them
-using TVPaint.
-
-The workflow may hit issues when there are used other blending modes than
-default 'color' blend more. In that case it is not recommended to use this
-workflow at all as other blend modes may affect all layers in clip which can't
-be done.
-
-There is special case for simple publishing of scene which is called
-'render.scene'. That will use all visible layers and render them as one big
-sequence.
-
-Todos:
-    Add option to extract marked layers and passes as json output format for
-        AfterEffects.
-"""
-
-import collections
-from typing import Any, Optional, Union
-
 from openpype.client import get_asset_by_name
 from openpype.lib import (
     prepare_template_data,
-    AbstractAttrDef,
-    UILabelDef,
-    UISeparatorDef,
     EnumDef,
-    TextDef,
     BoolDef,
 )
-from openpype.pipeline.create import (
-    CreatedInstance,
-    CreatorError,
-)
-from openpype.hosts.tvpaint.api.plugin import (
-    TVPaintCreator,
-    TVPaintAutoCreator,
-)
-from openpype.hosts.tvpaint.api.lib import (
-    get_layers_data,
-    get_groups_data,
-    execute_george_through_file,
-)
-
-RENDER_LAYER_DETAILED_DESCRIPTIONS = (
-    """Render Layer is "a group of TVPaint layers"
-
-Be aware Render Layer <b>is not</b> TVPaint layer.
-
-All TVPaint layers in the scene with the color group id are rendered in the
-beauty pass. To create sub passes use Render Pass creator which is
-dependent on existence of render layer instance.
-
-The group can represent an asset (tree) or different part of scene that consist
-of one or more TVPaint layers that can be used as single item during
-compositing (for example).
-
-In some cases may be needed to have sub parts of the layer. For example 'Bob'
-could be Render Layer which has 'Arm', 'Head' and 'Body' as Render Passes.
-"""
-)
-
-
-RENDER_PASS_DETAILED_DESCRIPTIONS = (
-    """Render Pass is sub part of Render Layer.
-
-Render Pass can consist of one or more TVPaint layers. Render Pass must
-belong to a Render Layer. Marked TVPaint layers will change it's group color
-to match group color of Render Layer.
-"""
-)
-
-
-AUTODETECT_RENDER_DETAILED_DESCRIPTION = (
-    """Semi-automated Render Layer and Render Pass creation.
-
-Based on information in TVPaint scene will be created Render Layers and Render
-Passes. All color groups used in scene will be used for Render Layer creation.
-Name of the group is used as a variant.
-
-All TVPaint layers under the color group will be created as Render Pass where
-layer name is used as variant.
-
-The plugin will use all used color groups and layers, or can skip those that
-are not visible.
-
-There is option to auto-rename color groups before Render Layer creation. That
-is based on settings template where is filled index of used group from bottom
-to top.
-"""
-)
+from openpype.pipeline.create import CreatedInstance
+from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintSceneRenderCreator(TVPaintAutoCreator):
