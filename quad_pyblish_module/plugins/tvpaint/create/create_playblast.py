@@ -8,7 +8,7 @@ from openpype.pipeline.create import CreatedInstance
 from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
-class TVPaintSceneRenderCreator(TVPaintAutoCreator):
+class TVPaintPlayblastCreator(TVPaintAutoCreator):
     family = "render"
     subset_template_family_filter = "playblast"
     identifier = "render.playblast"
