@@ -38,6 +38,20 @@
                                 "label": "Enabled"
                             }
                         ]
+                    },
+                    {
+                        "type": "dict",
+                        "key": "IntegrateKitsuSequence",
+                        "label": "Integrate Kitsu Sequence",
+                        "is_group": false,
+                        "checkbox_key": "enabled",
+                        "children": [
+                            {
+                                "type": "boolean",
+                                "key": "enabled",
+                                "label": "Enabled"
+                            }
+                        ]
                     }
                 ]
             },
@@ -68,6 +82,51 @@
                                 "type": "list",
                                 "key": "default_variants",
                                 "label": "Default variants",
+                                "object_type": {
+                                    "type": "text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "create_publish_layout",
+                        "label": "Create Publish Layout",
+                        "is_group": true,
+                        "children": [
+                            {
+                                "type": "boolean",
+                                "key": "enabled",
+                                "label": "Enabled"
+                            },
+                            {
+                                "type": "boolean",
+                                "key": "active_on_create",
+                                "label": "Active on create"
+                            },
+                            {
+                                "type": "boolean",
+                                "key": "ignore_layers_transparency",
+                                "label": "Ignore Layers Transparency"
+                            },
+                            {
+                                "type": "text",
+                                "key": "default_variant",
+                                "label": "Default variant"
+                            },
+                            {
+                                "type": "list",
+                                "key": "default_variants",
+                                "label": "Default variants",
+                                "object_type": {
+                                    "type": "text"
+                                }
+                            },
+                            {
+                                "type": "list",
+                                "key": "authorized_tasks",
+                                "label": "Authorized tasks",
                                 "object_type": {
                                     "type": "text"
                                 }
