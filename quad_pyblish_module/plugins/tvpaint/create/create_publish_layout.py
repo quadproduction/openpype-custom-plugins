@@ -123,7 +123,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
             ),
             BoolDef(
                 "publish_sequence",
-                label="Publish Sequence",
+                label="Review",
                 default=self.publish_sequence
             )
         ]
