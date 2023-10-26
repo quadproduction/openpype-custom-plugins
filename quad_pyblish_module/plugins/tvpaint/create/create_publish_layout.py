@@ -27,7 +27,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
             project_settings["fix_custom_settings"]["tvpaint"]["create"]["create_publish_layout"]
         )
         self.active_on_create = plugin_settings["active_on_create"]
-        self.ignore_layers_transparency = plugin_settings["ignore_layers_transparency"]
+        self.keep_layers_transparency = plugin_settings["keep_layers_transparency"]
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants = plugin_settings["default_variants"]
 
