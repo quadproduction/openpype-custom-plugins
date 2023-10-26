@@ -22,10 +22,9 @@
                 "create_publish_layout": {
                     "enabled": true,
                     "active_on_create": true,
-                    "ignore_layers_transparency": true,
+                    "keep_layers_transparency": true,
                     "default_variant": "Main",
-                    "default_variants": [],
-                    "authorized_tasks": []
+                    "default_variants": []
                 }
             }
         }

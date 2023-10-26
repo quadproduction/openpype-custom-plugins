@@ -20,7 +20,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
 
     # Settings
     publish_sequence = True
-    ignore_layers_transparency = False
+    keep_layers_transparency = False
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
@@ -52,7 +52,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
             "variant": self.default_variant,
             "creator_attributes": {
                 "publish_sequence": self.publish_sequence,
-                "ignore_layers_transparency": self.ignore_layers_transparency
+                "ignore_layers_transparency": not self.keep_layers_transparency
             },
             "label": self._get_label(subset_name),
             "active": self.active_on_create
@@ -117,13 +117,13 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
     def get_instance_attr_defs(self):
         return [
             BoolDef(
-                "ignore_layers_transparency",
-                label="Ignore Layers Transparency",
-                default=self.ignore_layers_transparency
+                "keep_layers_transparency",
+                label="Keep Layers Transparency",
+                default=self.keep_layers_transparency
             ),
             BoolDef(
                 "publish_sequence",
-                label="Publish Sequence",
+                label="Review",
                 default=self.publish_sequence
             )
         ]

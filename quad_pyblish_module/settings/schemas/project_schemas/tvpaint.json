@@ -107,8 +107,8 @@
                             },
                             {
                                 "type": "boolean",
-                                "key": "ignore_layers_transparency",
-                                "label": "Ignore Layers Transparency"
+                                "key": "keep_layers_transparency",
+                                "label": "Keep Layers Transparency"
                             },
                             {
                                 "type": "text",
@@ -119,14 +119,6 @@
                                 "type": "list",
                                 "key": "default_variants",
                                 "label": "Default variants",
-                                "object_type": {
-                                    "type": "text"
-                                }
-                            },
-                            {
-                                "type": "list",
-                                "key": "authorized_tasks",
-                                "label": "Authorized tasks",
                                 "object_type": {
                                     "type": "text"
                                 }
