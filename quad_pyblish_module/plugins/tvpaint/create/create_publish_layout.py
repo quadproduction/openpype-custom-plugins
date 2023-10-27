@@ -52,7 +52,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
             "variant": self.default_variant,
             "creator_attributes": {
                 "publish_sequence": self.publish_sequence,
-                "ignore_layers_transparency": not self.keep_layers_transparency
+                "keep_layers_transparency": self.keep_layers_transparency
             },
             "label": self._get_label(subset_name),
             "active": self.active_on_create
