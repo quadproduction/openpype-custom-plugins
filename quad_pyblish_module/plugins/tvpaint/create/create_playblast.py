@@ -9,11 +9,12 @@ from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintPlayblastCreator(TVPaintAutoCreator):
-    family = "render"
+    families = ["render"]
     subset_template_family_filter = "playblast"
     identifier = "render.playblast"
     label = "Playblast"
     icon = "fa.file-image-o"
+    hosts = ["tvpaint"]
 
     # Settings
     mark_for_review = True
@@ -108,7 +109,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
             pass
 
         return subset_name
-    
+
     def get_dynamic_data(self, variant, *args, **kwargs):
         dynamic_data = super().get_dynamic_data(variant, *args, **kwargs)
         return dynamic_data
