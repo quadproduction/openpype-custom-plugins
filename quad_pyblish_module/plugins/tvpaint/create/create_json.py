@@ -7,10 +7,11 @@ from openpype.pipeline.create import Creator
 
 
 class TVPaintJsonCreator(Creator):
-    family = "imagesequence"
+    families = ["imagesequence"]
     identifier = "imagesequence"
     label = "Json"
     icon = "fa.file-o"
+    hosts = ["tvpaint"]
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
