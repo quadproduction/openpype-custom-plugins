@@ -38,6 +38,20 @@
                                 "label": "Enabled"
                             }
                         ]
+                    },
+                    {
+                        "type": "dict",
+                        "key": "IntegrateKitsuSequence",
+                        "label": "Integrate Kitsu Sequence",
+                        "is_group": false,
+                        "checkbox_key": "enabled",
+                        "children": [
+                            {
+                                "type": "boolean",
+                                "key": "enabled",
+                                "label": "Enabled"
+                            }
+                        ]
                     }
                 ]
             },
@@ -58,6 +72,80 @@
                                 "type": "boolean",
                                 "key": "enabled",
                                 "label": "Enabled"
+                            },
+                            {
+                                "type": "text",
+                                "key": "default_variant",
+                                "label": "Default variant"
+                            },
+                            {
+                                "type": "list",
+                                "key": "default_variants",
+                                "label": "Default variants",
+                                "object_type": {
+                                    "type": "text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "create_playblast",
+                        "label": "Create Playblast",
+                        "is_group": true,
+                        "children": [
+                            {
+                                "type": "boolean",
+                                "key": "enabled",
+                                "label": "Enabled"
+                            },
+                            {
+                                "type": "boolean",
+                                "key": "active_on_create",
+                                "label": "Active by default"
+                            },
+                            {
+                                "type": "boolean",
+                                "key": "mark_for_review",
+                                "label": "Review by default"
+                            },
+                            {
+                                "type": "text",
+                                "key": "default_variant",
+                                "label": "Default variant"
+                            },
+                            {
+                                "type": "list",
+                                "key": "default_variants",
+                                "label": "Default variants",
+                                "object_type": {
+                                    "type": "text"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "create_publish_layout",
+                        "label": "Create Publish Layout",
+                        "is_group": true,
+                        "children": [
+                            {
+                                "type": "boolean",
+                                "key": "enabled",
+                                "label": "Enabled"
+                            },
+                            {
+                                "type": "boolean",
+                                "key": "active_on_create",
+                                "label": "Active on create"
+                            },
+                            {
+                                "type": "boolean",
+                                "key": "keep_layers_transparency",
+                                "label": "Keep Layers Transparency"
                             },
                             {
                                 "type": "text",

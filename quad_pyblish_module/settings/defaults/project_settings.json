@@ -7,11 +7,28 @@
                 },
                 "ExtractJson":  {
                     "enabled": false
+                },
+                "IntegrateKitsuSequence":  {
+                    "enabled": false
                 }
             },
             "create": {
                 "create_json": {
                     "enabled": true,
+                    "default_variant": "Main",
+                    "default_variants": []
+                },
+                "create_playblast": {
+                    "enabled": true,
+                    "active_on_create": true,
+                    "mark_for_review": true,
+                    "default_variant": "Main",
+                    "default_variants": []
+                },
+                "create_publish_layout": {
+                    "enabled": true,
+                    "active_on_create": true,
+                    "keep_layers_transparency": true,
                     "default_variant": "Main",
                     "default_variants": []
                 }
