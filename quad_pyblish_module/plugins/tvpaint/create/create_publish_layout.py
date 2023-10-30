@@ -12,11 +12,12 @@ from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
-    family = "render"
+    families = ["render"]
     subset_template_family_filter = "publish.sequence"
     identifier = "publish.sequence"
     label = "Publish Layout"
     icon = "fa.file-image-o"
+    hosts = ["tvpaint"]
 
     # Settings
     publish_sequence = True
@@ -109,7 +110,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
             pass
 
         return subset_name
-    
+
     def get_dynamic_data(self, variant, *args, **kwargs):
         dynamic_data = super().get_dynamic_data(variant, *args, **kwargs)
         return dynamic_data
