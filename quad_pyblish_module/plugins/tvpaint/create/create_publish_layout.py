@@ -12,7 +12,7 @@ from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
-    families = ["render"]
+    family = "render"
     subset_template_family_filter = "publish.sequence"
     identifier = "publish.sequence"
     label = "Publish Layout"
