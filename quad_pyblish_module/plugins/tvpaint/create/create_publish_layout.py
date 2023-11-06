@@ -1,17 +1,15 @@
 from openpype.client import get_asset_by_name
 from openpype.lib import (
     prepare_template_data,
-    EnumDef,
     BoolDef,
 )
 from openpype.pipeline.create import (
     CreatedInstance,
-    CreatorError,
 )
-from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
+from openpype.pipeline.create import Creator
 
 
-class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
+class TVPaintPublishLayoutCreator(Creator):
     family = "render"
     subset_template_family_filter = "publish.sequence"
     identifier = "publish.sequence"

@@ -7,7 +7,7 @@ from openpype.pipeline.create import Creator
 
 
 class TVPaintJsonCreator(Creator):
-    families = ["imagesequence"]
+    family = "imagesequence"
     identifier = "imagesequence"
     label = "Json"
     icon = "fa.file-o"

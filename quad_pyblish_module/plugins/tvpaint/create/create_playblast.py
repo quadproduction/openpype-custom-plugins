@@ -5,10 +5,10 @@ from openpype.lib import (
     BoolDef,
 )
 from openpype.pipeline.create import CreatedInstance
-from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
+from openpype.pipeline.create import Creator
 
 
-class TVPaintPlayblastCreator(TVPaintAutoCreator):
+class TVPaintPlayblastCreator(Creator):
     family = "render"
     subset_template_family_filter = "playblast"
     identifier = "render.playblast"
