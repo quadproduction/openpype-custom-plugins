@@ -3,15 +3,15 @@
 
 from openpype.client import get_asset_by_name
 from openpype.pipeline import CreatedInstance
-from openpype.pipeline.create import Creator
+from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
-class TVPaintJsonCreator(Creator):
+class TVPaintJsonCreator(TVPaintAutoCreator):
     family = "imagesequence"
     identifier = "imagesequence"
     label = "Json"
     icon = "fa.file-o"
-    hosts = ["tvpaint"]
+    host_name = "tvpaint"
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (

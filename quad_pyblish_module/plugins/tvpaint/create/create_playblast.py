@@ -14,7 +14,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
     identifier = "render.playblast"
     label = "Playblast"
     icon = "fa.file-image-o"
-    hosts = ["tvpaint"]
+    host_name = "tvpaint"
 
     # Settings
     mark_for_review = True

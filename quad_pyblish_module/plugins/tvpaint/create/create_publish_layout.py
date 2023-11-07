@@ -17,7 +17,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
     identifier = "publish.sequence"
     label = "Publish Layout"
     icon = "fa.file-image-o"
-    hosts = ["tvpaint"]
+    host_name = "tvpaint"
 
     # Settings
     publish_sequence = True
