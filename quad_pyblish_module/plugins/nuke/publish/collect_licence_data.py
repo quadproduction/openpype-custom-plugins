@@ -2,23 +2,24 @@ import pyblish.api
 import subprocess
 import re
 import os
+import platform
+import logging
 
+class CollectLicenseData(pyblish.api.InstancePlugin):
 
-class CollectLicenceData(pyblish.api.InstancePlugin):
-
-    """Collect Licence Data"""
+    """Collect License Data"""
 
     hosts = ["nuke"]
-    label = "Collect Licence Data"
+    label = "Collect License Data"
     order = pyblish.api.CollectorOrder + 0.4990
     # TODO: avoid hardcoded path
     rlm_path = "/prod/softprod/tools/linux/rlmutil"
+    # Match with server adress
+    foundry_licence = re.search(r':(\d+@[\w\.]+)', os.environ["foundry_LICENSE"]).group(1)
 
     def get_available_licenses(self):
-        """
-        """
         # Define the command to run
-        avail_command = f'{self.rlm_path} rlmstat -c {os.environ["foundry_LICENSE"]} -avail'
+        avail_command = f'{self.rlm_path} rlmstat -c {self.foundry_licence} -avail'
 
         # Define the pattern for matching the number of available licenses for nuke_i
         pattern = r'nuke_i v\d+\.\d+ available: (\d+)'
@@ -33,6 +34,7 @@ class CollectLicenceData(pyblish.api.InstancePlugin):
         if match:
             # Extract the number of available licenses
             available_licenses = int(match.group(1))
+            logging.info(f'License available detected : {available_licenses}')
         else:
             return False
 
@@ -43,7 +45,7 @@ class CollectLicenceData(pyblish.api.InstancePlugin):
 
     def get_user_licenses(self):
         # Define the pattern for matching user licenses for nuke_i
-        user_command = f'{self.rlm_path} rlmstat -c {os.environ["foundry_LICENSE"]} -u {os.environ["USER"]}'
+        user_command = f'{self.rlm_path} rlmstat -c {self.foundry_licence} -u {os.environ["USER"]}'
 
         user_pattern = r'nuke_i v\d+\.\d+: (\S+)@\S+ (\d+)/(\d+)'
 
@@ -55,18 +57,33 @@ class CollectLicenceData(pyblish.api.InstancePlugin):
 
         # Check if any matches are found
         if matches:
+            logging.info('User already have a license')
             return True
 
+        logging.info('User does not have a license')
         return False
 
     def process(self, instance):
-        # Check if user already have a licence
+
+        # If user is not on Linux, make the publish non-blocking
+        if platform.system() != 'Linux':
+            logging.info("Collect License Data is only available on linux")
+            return True
+
+        # If rlm_path has been modified, make the publish non-blocking
+        if not os.path.exists(self.rlm_path):
+            logging.warning("Can't Detect the RLM bin path")
+            return True
+
+        # Check if user already have a license
         if self.get_user_licenses():
+            logging.info("License found with success")
             return True
 
         # Check if user can get an available license
         if self.get_available_licenses():
+            logging.info("License found with success")
             return True
 
         # User can't publish
-        raise Exception("No available licence ! Can't publish")
+        raise Exception("No available license ! Can't publish")
