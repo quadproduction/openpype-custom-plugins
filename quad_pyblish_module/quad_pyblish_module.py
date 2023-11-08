@@ -1,5 +1,5 @@
 import os
-import glob
+from pathlib import Path
 from openpype.modules import (
     OpenPypeModule,
     IPluginPaths,
@@ -9,47 +9,79 @@ from openpype.modules import (
 
 class QuadPyblishModule(OpenPypeModule, IPluginPaths):
     name = "quadpyblish"
+    _valid_plugin_types = ["publish", "load", "create", "actions", "inventory"]
 
     def __init__(self, manager, settings):
         self._api = None
         self.settings = settings
+        self._plugin_folders = {}
         super(QuadPyblishModule, self).__init__(manager, settings)
 
     def initialize(self, module_settings):
         self.enabled = True
 
+    def get_plugin_folders(self, regenerate_cache=False):
+        if self._plugin_folders and not regenerate_cache:
+            return self._plugin_folders
+
+        parent_folder_path = Path(__file__).parent.joinpath("plugins")
+
+        hosts_folders_iterator = parent_folder_path.glob('*/')
+        for host_folder_path in hosts_folders_iterator:
+            host_name = host_folder_path.stem
+
+            if host_name not in self._plugin_folders:
+                self._plugin_folders[host_name] = {}
+
+            for plugin_type_path in host_folder_path.glob('*/'):
+                type_name = plugin_type_path.stem
+
+                if type_name not in self._valid_plugin_types:
+                    continue
+
+                if type_name not in self._plugin_folders[host_name]:
+                    self._plugin_folders[host_name][type_name] = []
+
+                self._plugin_folders[host_name][type_name].append(str(plugin_type_path.absolute()))
+        
+        return self._plugin_folders
+
     def get_plugin_paths(self):
         """Implementation of abstract method for `IPluginPaths`."""
-        # Regex to get all plugins from the plugins directory
-        current_dir = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            'plugins',
-            '**',
-            '*.py'
-        )
-
+        plugin_folders = self.get_plugin_folders()
+        
         # Initialize all plugins which can be supported
-        plugins_dict = {
-            "publish": [],
-            "load": [],
-            "create": [],
-            "actions": [],
-        }
+        plugins_dict = {type_name: [] for type_name in self._valid_plugin_types}
 
-        # Find all plugins recursively
-        for filepath in glob.glob(current_dir, recursive=True):
-            if '__init__.py' in filepath:
-                continue
-
-            plugin_type = next(
-                (key for key in plugins_dict.keys() if key in filepath),
-                None
-            )
-
-            if os.path.dirname(filepath) not in plugins_dict[plugin_type]:
-                plugins_dict[plugin_type].append(os.path.dirname(filepath))
+        for host_name in self._plugin_folders:
+            for type_name in self._plugin_folders[host_name]:
+                if type_name in plugins_dict:
+                    plugins_dict[type_name].append(self._plugin_folders[host_name][type_name])
 
         return plugins_dict
+
+    def get_plugin_paths_by_hostname_and_type(self, host_name, type_name):
+        plugins_paths = []
+
+        plugin_folders = self.get_plugin_folders()
+
+        if host_name in plugin_folders:
+            if type_name in self._plugin_folders[host_name]:
+                plugins_paths = self._plugin_folders[host_name][type_name]
+        
+        return plugins_paths
+
+    def get_create_plugin_paths(self, host_name):
+        return self.get_plugin_paths_by_hostname_and_type(host_name, "create")
+
+    def get_load_plugin_paths(self, host_name):
+        return self.get_plugin_paths_by_hostname_and_type(host_name, "load")
+
+    def get_publish_plugin_paths(self, host_name):
+        return self.get_plugin_paths_by_hostname_and_type(host_name, "publish")
+    
+    def get_inventory_action_paths(self, host_name):
+        return self.get_plugin_paths_by_hostname_and_type(host_name, "inventory")
 
 
 class AddonSettingsDef(JsonFilesSettingsDef):
