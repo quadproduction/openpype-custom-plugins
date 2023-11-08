@@ -21,7 +21,7 @@ class TVPaintJsonCreator(TVPaintAutoCreator):
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants = plugin_settings["default_variants"]
 
-    def create(self, subset_name, instance_data, pre_create_data):
+    def create(self):
         existing_instance = None
         for instance in self.create_context.instances:
             if instance.creator_identifier == self.identifier:
