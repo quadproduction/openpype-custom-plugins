@@ -9,7 +9,7 @@ from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintPlayblastCreator(TVPaintAutoCreator):
-    families = ["render"]
+    family = ["render"]
     subset_template_family_filter = "playblast"
     identifier = "render.playblast"
     label = "Playblast"
@@ -28,6 +28,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
         self.active_on_create = plugin_settings["active_on_create"]
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants =  plugin_settings["default_variants"]
+        self.extract_psd = plugin_settings["extract_psd"]
         self.exports_types = ['camera', 'scene']
         self.export_type = self.exports_types[0]
 
@@ -120,6 +121,11 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
                 "mark_for_review",
                 label="Review by default",
                 default=self.mark_for_review
+            ),
+            BoolDef(
+                "extract_psd",
+                label="Extract PSD",
+                default=self.extract_psd
             ),
             EnumDef(
                 "export_type",
