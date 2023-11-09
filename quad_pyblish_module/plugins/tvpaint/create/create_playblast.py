@@ -30,6 +30,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
         self.default_variants =  plugin_settings["default_variants"]
         self.exports_types = ['camera', 'scene']
         self.export_type = self.exports_types[0]
+        self.enabled = plugin_settings["enabled"]
 
     def _create_new_instance(self):
         create_context = self.create_context
@@ -38,6 +39,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
         asset_name = create_context.get_current_asset_name()
         task_name = create_context.get_current_task_name()
 
+        asset_doc = get_asset_by_name(project_name, asset_name)
         asset_doc = get_asset_by_name(project_name, asset_name)
         subset_name = self.get_subset_name(
             self.default_variant,

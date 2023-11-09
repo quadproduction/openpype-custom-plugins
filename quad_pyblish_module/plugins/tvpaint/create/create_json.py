@@ -20,6 +20,7 @@ class TVPaintJsonCreator(Creator):
         )
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants = plugin_settings["default_variants"]
+        self.enabled = plugin_settings["enabled"]
 
     def create(self, subset_name, instance_data, pre_create_data):
         existing_instance = None

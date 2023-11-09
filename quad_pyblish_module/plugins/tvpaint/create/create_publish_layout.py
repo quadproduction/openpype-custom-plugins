@@ -31,6 +31,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
         self.keep_layers_transparency = plugin_settings["keep_layers_transparency"]
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants = plugin_settings["default_variants"]
+        self.enabled = plugin_settings["enabled"]
 
     def _create_new_instance(self):
         create_context = self.create_context
