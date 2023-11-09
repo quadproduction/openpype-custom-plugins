@@ -33,7 +33,7 @@ class QuadPyblishModule(OpenPypeModule, IPluginPaths):
             "publish": [],
             "load": [],
             "create": [],
-            "actions": [],
+            "builder": []
         }
 
         # Find all plugins recursively
