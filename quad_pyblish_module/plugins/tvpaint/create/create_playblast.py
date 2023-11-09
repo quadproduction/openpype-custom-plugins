@@ -40,7 +40,6 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
         task_name = create_context.get_current_task_name()
 
         asset_doc = get_asset_by_name(project_name, asset_name)
-        asset_doc = get_asset_by_name(project_name, asset_name)
         subset_name = self.get_subset_name(
             self.default_variant,
             task_name,
