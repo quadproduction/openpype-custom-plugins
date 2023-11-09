@@ -9,12 +9,12 @@ from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintPlayblastCreator(TVPaintAutoCreator):
-    families = ["render"]
+    family = "render"
     subset_template_family_filter = "playblast"
     identifier = "render.playblast"
     label = "Playblast"
     icon = "fa.file-image-o"
-    hosts = ["tvpaint"]
+    host_name = "tvpaint"
 
     # Settings
     mark_for_review = True
