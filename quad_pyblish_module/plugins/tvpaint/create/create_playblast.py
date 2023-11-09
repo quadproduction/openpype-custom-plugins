@@ -9,7 +9,7 @@ from openpype.hosts.tvpaint.api.plugin import TVPaintAutoCreator
 
 
 class TVPaintPlayblastCreator(TVPaintAutoCreator):
-    family = ["render"]
+    families = ["render"]
     subset_template_family_filter = "playblast"
     identifier = "render.playblast"
     label = "Playblast"
