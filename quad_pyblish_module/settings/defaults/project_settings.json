@@ -22,6 +22,7 @@
                     "enabled": true,
                     "active_on_create": true,
                     "mark_for_review": true,
+                    "extract_psd": false,
                     "default_variant": "Main",
                     "default_variants": []
                 },
