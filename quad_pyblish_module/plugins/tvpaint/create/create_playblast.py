@@ -31,6 +31,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
         self.extract_psd = plugin_settings["extract_psd"]
         self.exports_types = ['camera', 'scene']
         self.export_type = self.exports_types[0]
+        self.enabled = plugin_settings.get("enabled", True)
 
     def _create_new_instance(self):
         create_context = self.create_context
