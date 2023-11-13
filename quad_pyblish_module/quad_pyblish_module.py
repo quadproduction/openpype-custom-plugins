@@ -9,7 +9,7 @@ from openpype.modules import (
 
 class QuadPyblishModule(OpenPypeModule, IPluginPaths):
     name = "quadpyblish"
-    _valid_plugin_types = ["publish", "load", "create", "actions", "inventory"]
+    _valid_plugin_types = ["publish", "load", "create", "actions", "inventory", "builder"]
 
     def __init__(self, manager, settings):
         self._api = None
@@ -43,45 +43,51 @@ class QuadPyblishModule(OpenPypeModule, IPluginPaths):
                     self._plugin_folders[host_name][type_name] = []
 
                 self._plugin_folders[host_name][type_name].append(str(plugin_type_path.absolute()))
-        
+
         return self._plugin_folders
 
     def get_plugin_paths(self):
         """Implementation of abstract method for `IPluginPaths`."""
         plugin_folders = self.get_plugin_folders()
-        
+
         # Initialize all plugins which can be supported
         plugins_dict = {type_name: [] for type_name in self._valid_plugin_types}
 
-        for host_name in self._plugin_folders:
-            for type_name in self._plugin_folders[host_name]:
+        for host_name in plugin_folders:
+            for type_name in plugin_folders[host_name]:
                 if type_name in plugins_dict:
-                    plugins_dict[type_name].append(self._plugin_folders[host_name][type_name])
+                    plugins_dict[type_name].append(plugin_folders[host_name][type_name])
 
         return plugins_dict
 
-    def get_plugin_paths_by_hostname_and_type(self, host_name, type_name):
+    def get_plugin_paths_by_hostnames_and_type(self, host_names, type_name):
         plugins_paths = []
 
         plugin_folders = self.get_plugin_folders()
 
-        if host_name in plugin_folders:
-            if type_name in self._plugin_folders[host_name]:
-                plugins_paths = self._plugin_folders[host_name][type_name]
-        
+        if isinstance(host_names, str):
+            host_names = [host_names]
+
+        for host_name in host_names:
+            if host_name in plugin_folders and type_name in plugin_folders[host_name]:
+                plugins_paths.extend(plugin_folders[host_name][type_name])
+
         return plugins_paths
 
     def get_create_plugin_paths(self, host_name):
-        return self.get_plugin_paths_by_hostname_and_type(host_name, "create")
+        return self.get_plugin_paths_by_hostnames_and_type([host_name, "common"], "create")
 
     def get_load_plugin_paths(self, host_name):
-        return self.get_plugin_paths_by_hostname_and_type(host_name, "load")
+        return self.get_plugin_paths_by_hostnames_and_type([host_name, "common"], "load")
 
     def get_publish_plugin_paths(self, host_name):
-        return self.get_plugin_paths_by_hostname_and_type(host_name, "publish")
-    
+        return self.get_plugin_paths_by_hostnames_and_type([host_name, "common"], "publish")
+
     def get_inventory_action_paths(self, host_name):
-        return self.get_plugin_paths_by_hostname_and_type(host_name, "inventory")
+        return self.get_plugin_paths_by_hostnames_and_type([host_name, "common"], "inventory")
+
+    def get_builder_action_paths(self, host_name):
+        return self.get_plugin_paths_by_hostnames_and_type([host_name, "common"], "builder")
 
 
 class AddonSettingsDef(JsonFilesSettingsDef):
