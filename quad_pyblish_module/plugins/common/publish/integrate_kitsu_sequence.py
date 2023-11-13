@@ -20,14 +20,19 @@ class IntegrateKitsuSequence(pyblish.api.InstancePlugin):
                 "Comment not created, review not pushed to preview."
             )
             return
+        
+        # Skip if Publish Sequence option hasn't been enabled from creator subset.
+        if not instance.data.get("creator_attributes") or \
+            not instance.data["creator_attributes"].get("publish_sequence"):
+            self.log.debug(
+                "Integrate Kitsu Sequence has not been enabled."
+            )
+            return
 
         # Add review representations as preview of comment
         task_id = instance.data["kitsu_task"]["id"]
+        
         for representation in instance.data.get("representations", []):
-            # Skip if Publish Sequence option hasn't been enabled from creator subset.
-            if not instance.data["creator_attributes"].get("publish_sequence"):
-                continue
-
             # Skip if Extract Sequence has interpreted image generation 
             # as review (before video concatenation) instead of a simple sequence.
             if "sequence" not in representation.get("tags", []):
