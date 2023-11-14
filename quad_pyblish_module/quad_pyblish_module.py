@@ -56,7 +56,7 @@ class QuadPyblishModule(OpenPypeModule, IPluginPaths):
         for host_name in plugin_folders:
             for type_name in plugin_folders[host_name]:
                 if type_name in plugins_dict:
-                    plugins_dict[type_name].append(plugin_folders[host_name][type_name])
+                    plugins_dict[type_name].extend(plugin_folders[host_name][type_name])
 
         return plugins_dict
 
