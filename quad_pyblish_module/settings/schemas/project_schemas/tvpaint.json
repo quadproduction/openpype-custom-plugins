@@ -21,7 +21,7 @@
                         "children": [
                             {
                                 "type": "label",
-                                "label": "<b>Warning :</b> in order to enable this plugin, you also need to set an attribute <i>extract_psd</i> in your subset."
+                                "label": "<b>Warning :</b> this plugin is only available for subsets with an <i>Extract PSD</i> option."
                             },
                             {
                                 "type": "boolean",
