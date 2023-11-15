@@ -31,6 +31,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
         self.keep_layers_transparency = plugin_settings["keep_layers_transparency"]
         self.default_variant = plugin_settings["default_variant"]
         self.default_variants = plugin_settings["default_variants"]
+        self.extract_psd = plugin_settings["extract_psd"]
         self.enabled = plugin_settings.get("enabled", True)
 
     def _create_new_instance(self):
@@ -54,7 +55,8 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
             "variant": self.default_variant,
             "creator_attributes": {
                 "publish_sequence": self.publish_sequence,
-                "keep_layers_transparency": self.keep_layers_transparency
+                "keep_layers_transparency": self.keep_layers_transparency,
+                "extract_psd": self.extract_psd
             },
             "label": self._get_label(subset_name),
             "active": self.active_on_create
@@ -122,6 +124,11 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
                 "keep_layers_transparency",
                 label="Keep Layers Transparency",
                 default=self.keep_layers_transparency
+            ),
+            BoolDef(
+                "extract_psd",
+                label="Extract PSD",
+                default=self.extract_psd
             ),
             BoolDef(
                 "publish_sequence",

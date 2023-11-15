@@ -13,11 +13,16 @@
                 "children": [
                     {
                         "type": "dict",
+                        "collapsible": true,
                         "key": "ExtractPsd",
                         "label": "Extract PSD",
-                        "is_group": false,
+                        "is_group": true,
                         "checkbox_key": "enabled",
                         "children": [
+                            {
+                                "type": "label",
+                                "label": "<b>Warning :</b> in order to enable this plugin, you also need to set an attribute <i>extract_psd</i> in your subset."
+                            },
                             {
                                 "type": "boolean",
                                 "key": "enabled",
@@ -151,6 +156,11 @@
                                 "type": "boolean",
                                 "key": "keep_layers_transparency",
                                 "label": "Keep Layers Transparency"
+                            },
+                            {
+                                "type": "boolean",
+                                "key": "extract_psd",
+                                "label": "Extract PSD by default"
                             },
                             {
                                 "type": "text",

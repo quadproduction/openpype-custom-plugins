@@ -13,7 +13,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     order = pyblish.api.ExtractorOrder + 0.02
     label = "Extract PSD"
     hosts = ["tvpaint"]
-    families = ["renderLayer", "review"]
+    families = ["renderLayer", "review", "render"]
 
     project_name = os.environ['AVALON_PROJECT']
     project_settings = get_project_settings(project_name)
@@ -22,7 +22,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         'ExtractPsd']['enabled']
 
     def process(self, instance):
-        if not instance.data["creator_attributes"].get("extract_psd", self.enabled):
+        if not instance.data["creator_attributes"].get("extract_psd", False):
             return
 
         george_script_lines = []
