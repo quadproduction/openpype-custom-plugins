@@ -25,7 +25,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         if not self.enabled:
             return
 
-        if not instance.data["creator_attributes"].get("extract_psd", self.enabled):
+        if not instance.data["creator_attributes"].get("extract_psd", False):
             return
 
         george_script_lines = []
