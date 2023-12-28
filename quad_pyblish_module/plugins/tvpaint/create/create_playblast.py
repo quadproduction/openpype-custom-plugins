@@ -54,7 +54,8 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
             "variant": self.default_variant,
             "creator_attributes": {
                 "mark_for_review": self.mark_for_review,
-                "export_type": self.export_type
+                "export_type": self.export_type,
+                "self.extract_psd": self.extract_psd
             },
             "label": self._get_label(subset_name),
             "active": self.active_on_create

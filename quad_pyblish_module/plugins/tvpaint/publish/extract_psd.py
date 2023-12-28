@@ -19,10 +19,13 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     project_settings = get_project_settings(project_name)
 
     enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
-        'ExtractPsd']['enabled']
+        'ExtractPsd'].get('enabled')
 
     def process(self, instance):
-        if not instance.data["creator_attributes"].get("extract_psd", False):
+        if not self.enabled:
+            return
+
+        if not instance.data["creator_attributes"].get("extract_psd", self.enabled):
             return
 
         george_script_lines = []
