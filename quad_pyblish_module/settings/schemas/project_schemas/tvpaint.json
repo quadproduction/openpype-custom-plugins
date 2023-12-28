@@ -20,10 +20,6 @@
                         "checkbox_key": "enabled",
                         "children": [
                             {
-                                "type": "label",
-                                "label": "<b>Warning :</b> this plugin is only available for subsets with an <i>Extract PSD</i> option."
-                            },
-                            {
                                 "type": "boolean",
                                 "key": "enabled",
                                 "label": "Enabled"
