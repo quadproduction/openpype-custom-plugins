@@ -30,6 +30,7 @@
                     "enabled": true,
                     "active_on_create": true,
                     "keep_layers_transparency": true,
+                    "extract_psd": false,
                     "default_variant": "Main",
                     "default_variants": []
                 }
