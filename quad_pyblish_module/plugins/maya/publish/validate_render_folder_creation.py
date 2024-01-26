@@ -24,18 +24,19 @@ class ValidateRenderFolderCreation(api.InstancePlugin):
         template_data = copy.deepcopy(instance.data["anatomyData"])
         template_name = "render"
         anatomy = instance.context.data['anatomy']
-        # Build template attributes dict necessary to
-        template_attributes = [
+
+        # Additional template attributes necessary to retrieve the desired path
+        additional_template_attributes = [
             "originalBasename",
             "originalDirname",
             "colorspace",
             "version"
         ]
-        for template_attribute in template_attributes:
-            template_data[template_attribute] = ''
+        for template_attribute in additional_template_attributes:
+            template_data[template_attribute] = ""
 
         for key_attr, value_attr in instance.data.items():
-            if key_attr in template_attributes:
+            if key_attr in additional_template_attributes:
                 template_data[key_attr] = value_attr
 
         # Get the render template
