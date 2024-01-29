@@ -19,7 +19,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     project_settings = get_project_settings(project_name)
 
     enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
-        'ExtractPsd'].get('enabled')
+        'ExtractPsd'].get('enabled', True)
 
     def process(self, instance):
         if not self.enabled:
