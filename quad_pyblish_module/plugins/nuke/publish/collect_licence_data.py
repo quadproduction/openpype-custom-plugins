@@ -15,7 +15,7 @@ class CollectLicenseData(pyblish.api.InstancePlugin):
     # TODO: avoid hardcoded path
     rlm_path = "/prod/softprod/tools/linux/rlmutil"
     # Match with server adress
-    foundry_licence = re.search(r':(\d+@[\w\.]+)', os.environ["foundry_LICENSE"]).group(1)
+    foundry_licence = re.search(r':(\d+@[\w.]+)', os.environ.get("foundry_LICENSE", "")).group(1)
 
     def get_available_licenses(self):
         # Define the command to run
