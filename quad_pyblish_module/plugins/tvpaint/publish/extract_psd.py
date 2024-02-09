@@ -55,18 +55,27 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                 files = repre['files']
 
             new_filenames = []
-            for filename in files:
+            for offset, filename in enumerate(files):
                 new_filename = os.path.splitext(filename)[0]
                 dst_filepath = os.path.join(repre["stagingDir"], new_filename)
                 new_filenames.append(new_filename + '.psd')
+
+                #frame_start = self.get_frame_start(repre)
+                self.log.warning(instance.context.data["sceneMarkIn"])
+                self.log.warning(type(instance.context.data["sceneMarkIn"]))
 
                 # george command to export psd files for each image
                 george_script_lines.append(
                     "tv_clipsavestructure \"{}\" \"PSD\" \"image\" {}".format(
                         dst_filepath,
-                        int(new_filename) - 1
+                        int(instance.context.data["sceneMarkIn"]) + offset
                     )
                 )
+
+                self.log.warning("tv_clipsavestructure \"{}\" \"PSD\" \"image\" {}".format(
+                        dst_filepath,
+                        int(instance.context.data["sceneMarkIn"]) + offset
+                    ))
 
             # Convert list to str if there's only one item
             if len(new_filenames) == 1:
