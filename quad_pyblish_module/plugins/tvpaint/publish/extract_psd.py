@@ -3,6 +3,7 @@
 import os
 import json
 import tempfile
+from pathlib import Path
 
 import pyblish.api
 from openpype.settings import get_project_settings
@@ -32,6 +33,15 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         repres = instance.data.get("representations")
         if not repres:
             return
+        
+        scene_mark_in = int(instance.context.data["sceneMarkIn"])
+        output_dir = instance.data.get("stagingDir")
+        if not output_dir or not os.path.exists(output_dir):
+            # Create temp folder if staging dir is not set
+            output_dir = (
+                tempfile.mkdtemp(prefix="tvpaint_export_json_psd_")
+            ).replace("\\", "/")
+            instance.data['stagingDir'] = output_dir
 
         new_psd_repres = []
         for repre in repres:
@@ -42,12 +52,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                 json.dumps(repre, sort_keys=True, indent=4)
             ))
 
-            output_dir = instance.data.get("stagingDir")
-            if not output_dir or not os.path.exists(output_dir):
-                # Create temp folder if staging dir is not set
-                output_dir = (
-                    tempfile.mkdtemp(prefix="tvpaint_export_json_psd_")
-                ).replace("\\", "/")
+            
 
             if not isinstance(repre['files'], list):
                 files = [repre['files']]
@@ -56,15 +61,15 @@ class ExtractPsd(pyblish.api.InstancePlugin):
 
             new_filenames = []
             for offset, filename in enumerate(files):
-                new_filename = os.path.splitext(filename)[0]
-                dst_filepath = os.path.join(repre["stagingDir"], new_filename)
+                new_filename = Path(filename).stem
+                dst_filepath = Path(repre["stagingDir"], new_filename)
                 new_filenames.append(new_filename + '.psd')
 
                 # george command to export psd files for each image
                 george_script_lines.append(
                     "tv_clipsavestructure \"{}\" \"PSD\" \"image\" {}".format(
-                        dst_filepath,
-                        int(instance.context.data["sceneMarkIn"]) + offset
+                        dst_filepath.resolve(),
+                        scene_mark_in + offset
                     )
                 )
 
