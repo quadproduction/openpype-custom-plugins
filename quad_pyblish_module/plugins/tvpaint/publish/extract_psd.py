@@ -20,7 +20,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     project_settings = get_project_settings(project_name)
 
     enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
-        'ExtractPsd'].get('enabled')
+        'ExtractPsd'].get('enabled', False)
 
     staging_dir_prefix = "tvpaint_export_json_psd_"
 
@@ -69,6 +69,8 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                 dst_filepath = output_dir.joinpath(new_filename)
                 new_filenames.append(new_filename + '.psd')
 
+                frame_start = self.get_frame_start(repre)
+
                 # george command to export psd files for each image
                 george_script_lines.append(
                     "tv_clipsavestructure \"{}\" \"PSD\" \"image\" {}".format(
@@ -102,3 +104,10 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                 )
             )
         )
+
+    def get_frame_start(self, representation):
+        frame_start = representation.get('frameStart')
+        if not frame_start:
+            frame_start = str(lib.execute_george("tv_startframe"))
+
+        return frame_start
