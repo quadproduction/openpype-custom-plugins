@@ -22,6 +22,8 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
         'ExtractPsd'].get('enabled')
 
+    staging_dir_prefix = "tvpaint_export_json_psd_"
+
     def process(self, instance):
         if not self.enabled:
             return
@@ -36,12 +38,16 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         
         scene_mark_in = int(instance.context.data["sceneMarkIn"])
         output_dir = instance.data.get("stagingDir")
-        if not output_dir or not os.path.exists(output_dir):
+
+        if output_dir:
+            # Only convert to a Path object if not None or empty
+            output_dir = Path(output_dir)
+
+        if not output_dir or not output_dir.exists():
             # Create temp folder if staging dir is not set
-            output_dir = (
-                tempfile.mkdtemp(prefix="tvpaint_export_json_psd_")
-            ).replace("\\", "/")
-            instance.data['stagingDir'] = output_dir
+            output_dir = Path(tempfile.mkdtemp(
+                prefix=self.staging_dir_prefix).replace("\\", "/"))
+            instance.data['stagingDir'] = output_dir.resolve()
 
         new_psd_repres = []
         for repre in repres:
