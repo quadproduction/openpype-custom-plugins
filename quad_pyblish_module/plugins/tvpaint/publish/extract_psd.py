@@ -66,7 +66,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
             new_filenames = []
             for offset, filename in enumerate(files):
                 new_filename = Path(filename).stem
-                dst_filepath = Path(output_dir, new_filename)
+                dst_filepath = output_dir.joinpath(new_filename)
                 new_filenames.append(new_filename + '.psd')
 
                 # george command to export psd files for each image
