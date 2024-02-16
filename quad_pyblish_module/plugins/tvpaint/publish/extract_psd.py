@@ -52,8 +52,6 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                 json.dumps(repre, sort_keys=True, indent=4)
             ))
 
-            
-
             if not isinstance(repre['files'], list):
                 files = [repre['files']]
             else:
