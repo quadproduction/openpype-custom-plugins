@@ -39,6 +39,11 @@ class IntegrateKitsuSequence(pyblish.api.InstancePlugin):
                 continue
 
             filesnames = representation.get("files")
+
+            #if only one frame is publish, transform representation["files"] into a list qith a single element
+            if type(filesnames) != list:
+                filesnames = [filesnames]
+
             if not filesnames:
                 self.log.warning("No files found following sequence extract.")
                 raise IndexError       

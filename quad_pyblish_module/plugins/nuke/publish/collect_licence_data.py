@@ -12,12 +12,17 @@ class CollectLicenseData(pyblish.api.InstancePlugin):
     hosts = ["nuke"]
     label = "Collect License Data"
     order = pyblish.api.CollectorOrder + 0.4990
+
     # TODO: avoid hardcoded path
     rlm_path = "/prod/softprod/tools/linux/rlmutil"
-    # Match with server adress
-    foundry_licence = re.search(r':(\d+@[\w\.]+)', os.environ["foundry_LICENSE"]).group(1)
+    # Match with server address
+    foundry_licence_regex_result = re.search(r':(\d+@[\w.]+)', os.environ.get("foundry_LICENSE", ""))
+    foundry_licence = foundry_licence_regex_result.group(1) if foundry_licence_regex_result else None
 
     def get_available_licenses(self):
+        if not self.foundry_licence:
+            return False
+
         # Define the command to run
         avail_command = f'{self.rlm_path} rlmstat -c {self.foundry_licence} -avail'
 
@@ -44,6 +49,9 @@ class CollectLicenseData(pyblish.api.InstancePlugin):
         return True
 
     def get_user_licenses(self):
+        if not self.foundry_licence:
+            return False
+
         # Define the pattern for matching user licenses for nuke_i
         user_command = f'{self.rlm_path} rlmstat -c {self.foundry_licence} -u {os.environ["USER"]}'
 

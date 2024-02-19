@@ -3,6 +3,7 @@
 import os
 import json
 import tempfile
+from pathlib import Path
 
 import pyblish.api
 from openpype.settings import get_project_settings
@@ -19,7 +20,9 @@ class ExtractPsd(pyblish.api.InstancePlugin):
     project_settings = get_project_settings(project_name)
 
     enabled = project_settings['fix_custom_settings']['tvpaint']['publish'][
-        'ExtractPsd'].get('enabled')
+        'ExtractPsd'].get('enabled', False)
+
+    staging_dir_prefix = "tvpaint_export_json_psd_"
 
     def process(self, instance):
         if not self.enabled:
@@ -32,6 +35,19 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         repres = instance.data.get("representations")
         if not repres:
             return
+        
+        scene_mark_in = int(instance.context.data["sceneMarkIn"])
+        output_dir = instance.data.get("stagingDir")
+
+        if output_dir:
+            # Only convert to a Path object if not None or empty
+            output_dir = Path(output_dir)
+
+        if not output_dir or not output_dir.exists():
+            # Create temp folder if staging dir is not set
+            output_dir = Path(tempfile.mkdtemp(
+                prefix=self.staging_dir_prefix).replace("\\", "/"))
+            instance.data['stagingDir'] = output_dir.resolve()
 
         new_psd_repres = []
         for repre in repres:
@@ -42,29 +58,24 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                 json.dumps(repre, sort_keys=True, indent=4)
             ))
 
-            output_dir = instance.data.get("stagingDir")
-            if not output_dir or not os.path.exists(output_dir):
-                # Create temp folder if staging dir is not set
-                output_dir = (
-                    tempfile.mkdtemp(prefix="tvpaint_export_json_psd_")
-                ).replace("\\", "/")
-
             if not isinstance(repre['files'], list):
                 files = [repre['files']]
             else:
                 files = repre['files']
 
             new_filenames = []
-            for filename in files:
-                new_filename = os.path.splitext(filename)[0]
-                dst_filepath = os.path.join(repre["stagingDir"], new_filename)
+            for offset, filename in enumerate(files):
+                new_filename = Path(filename).stem
+                dst_filepath = output_dir.joinpath(new_filename)
                 new_filenames.append(new_filename + '.psd')
+
+                frame_start = self.get_frame_start(repre)
 
                 # george command to export psd files for each image
                 george_script_lines.append(
                     "tv_clipsavestructure \"{}\" \"PSD\" \"image\" {}".format(
-                        dst_filepath,
-                        int(new_filename) - 1
+                        dst_filepath.resolve(),
+                        scene_mark_in + offset
                     )
                 )
 
@@ -93,3 +104,10 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                 )
             )
         )
+
+    def get_frame_start(self, representation):
+        frame_start = representation.get('frameStart')
+        if not frame_start:
+            frame_start = str(lib.execute_george("tv_startframe"))
+
+        return frame_start

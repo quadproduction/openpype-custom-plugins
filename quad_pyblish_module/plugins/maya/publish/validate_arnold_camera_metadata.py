@@ -1,5 +1,12 @@
-from maya import cmds
 import pyblish.api
+
+try:
+    from maya import cmds
+except ImportError:
+    # Ignoring, we don't want misleading error logs on jobs log on deadline.
+    # Because the farm publish function imports every publish file before filtering.
+    pass
+
 from openpype.hosts.maya.api import lib
 from openpype.pipeline.publish import (
     ValidateContentsOrder
