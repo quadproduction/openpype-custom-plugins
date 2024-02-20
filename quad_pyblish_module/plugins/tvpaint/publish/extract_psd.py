@@ -88,7 +88,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                     "name": "psd",
                     "ext": "psd",
                     "files": new_filenames,
-                    "stagingDir": output_dir,
+                    "stagingDir": output_dir.resolve(),
                     "tags": "psd"
                 }
             )
