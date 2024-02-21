@@ -47,7 +47,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
             # Create temp folder if staging dir is not set
             output_dir = Path(tempfile.mkdtemp(
                 prefix=self.staging_dir_prefix).replace("\\", "/"))
-            instance.data['stagingDir'] = output_dir.resolve()
+            instance.data['stagingDir'] = str(output_dir.resolve())
 
         new_psd_repres = []
         for repre in repres:
@@ -88,7 +88,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
                     "name": "psd",
                     "ext": "psd",
                     "files": new_filenames,
-                    "stagingDir": output_dir.resolve(),
+                    "stagingDir": str(output_dir.resolve()),
                     "tags": "psd"
                 }
             )
