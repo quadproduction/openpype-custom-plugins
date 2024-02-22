@@ -23,7 +23,7 @@ class ImageSequenceLoader(plugin.AssetLoader):
     """
 
     families = ["image", "render"]
-    representations = ["*"]
+    representations = ["jpg", "png"]
 
     label = "Load Image Sequence"
     icon = "code-fork"
@@ -55,6 +55,7 @@ class ImageSequenceLoader(plugin.AssetLoader):
         except IndexError:
             background = camera.data.background_images.new()        
         imported_image.source = 'SEQUENCE'
+        background.source = 'IMAGE'
         background.image = imported_image
         background.image_user.frame_duration
 
@@ -71,5 +72,6 @@ class ImageSequenceLoader(plugin.AssetLoader):
         
         background.image_user.frame_start = frame_start
         background.image_user.frame_duration = frames
+        background.image_user.frame_offset = 0
 
         self.log.info(f"Image sequence at path {imported_image.filepath} has been correctly loaded in scene as camera background.")

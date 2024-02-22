@@ -53,7 +53,8 @@ class ImageCameraLoader(plugin.AssetLoader):
             background = camera.data.background_images[0]
         except IndexError:
             background = camera.data.background_images.new()        
-        imported_image.source = 'SEQUENCE'
+        imported_image.source = 'FILE'
+        background.source = 'IMAGE'
         background.image = imported_image
 
         self.log.info(f"Image at path {imported_image.filepath} has been correctly loaded in scene as camera background.")
