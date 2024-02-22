@@ -16,16 +16,16 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_PROPERTY,
 )
 
-class ImageCameraLoader(plugin.AssetLoader):
+class ImageSequenceLoader(plugin.AssetLoader):
     """Load FBX models.
 
     Stores the imported asset in an empty named after the asset.
     """
 
-    families = ["image", "render", "review"]
-    representations = ["jpg", "png"]
+    families = ["image", "render"]
+    representations = ["*"]
 
-    label = "Load Image in Camera"
+    label = "Load Image Sequence"
     icon = "code-fork"
     color = "orange"
 
@@ -41,6 +41,7 @@ class ImageCameraLoader(plugin.AssetLoader):
             context: Full parenthood of representation to load
             options: Additional settings dictionary
         """
+        print(context)
         image_filepath = self.filepath_from_context(context)
         imported_image = bpy.data.images.load(image_filepath)
 
@@ -55,5 +56,20 @@ class ImageCameraLoader(plugin.AssetLoader):
             background = camera.data.background_images.new()        
         imported_image.source = 'SEQUENCE'
         background.image = imported_image
+        background.image_user.frame_duration
 
-        self.log.info(f"Image at path {imported_image.filepath} has been correctly loaded in scene as camera background.")
+        context_data = context.get('version', []).get('data', [])
+        if not context_data:
+            raise ValueError("Can't access to context data when retrieving frame informations. Abort.")
+
+        frame_start = context_data.get('frameStart')
+        frame_end = context_data.get('frameEnd')
+        if not frame_start or not frame_end:
+            raise ValueError("Can't find frame range informations. Abort.")
+
+        frames = (frame_end - frame_start) + 1
+        
+        background.image_user.frame_start = frame_start
+        background.image_user.frame_duration = frames
+
+        self.log.info(f"Image sequence at path {imported_image.filepath} has been correctly loaded in scene as camera background.")

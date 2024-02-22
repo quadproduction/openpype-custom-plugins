@@ -20,8 +20,8 @@ class ImageReferenceLoader(plugin.AssetLoader):
     Stores the imported asset in an empty named after the asset.
     """
 
-    families = ["image", "render"]
-    representations = ["*"]
+    families = ["image", "render", "review"]
+    representations = ["jpg", "png"]
 
     label = "Load Image as Reference"
     icon = "code-fork"
@@ -39,18 +39,9 @@ class ImageReferenceLoader(plugin.AssetLoader):
             context: Full parenthood of representation to load
             options: Additional settings dictionary
         """
-        print('IMAGE LOADER')
-        print(context)
-        print(name)
-        print(namespace)
-        print(options)
+
         image_filepath = self.filepath_from_context(context)
         asset = context["asset"]["name"]
-        subset = context["subset"]["name"]
-        print('----')
-        print(image_filepath)
-        print(asset)
-        print(subset)
 
         imported_image = bpy.data.images.load(image_filepath)
         image_name = asset + '_null'

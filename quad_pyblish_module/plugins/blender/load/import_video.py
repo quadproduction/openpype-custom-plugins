@@ -16,16 +16,16 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_PROPERTY,
 )
 
-class ImageCameraLoader(plugin.AssetLoader):
+class ImageVideo(plugin.AssetLoader):
     """Load FBX models.
 
     Stores the imported asset in an empty named after the asset.
     """
 
     families = ["image", "render", "review"]
-    representations = ["jpg", "png"]
+    representations = ["mp4", "avi", "h264_mp4"]
 
-    label = "Load Image in Camera"
+    label = "Load Video"
     icon = "code-fork"
     color = "orange"
 
@@ -41,19 +41,20 @@ class ImageCameraLoader(plugin.AssetLoader):
             context: Full parenthood of representation to load
             options: Additional settings dictionary
         """
-        image_filepath = self.filepath_from_context(context)
-        imported_image = bpy.data.images.load(image_filepath)
+        video_filepath = self.filepath_from_context(context)
+        imported_video = bpy.data.movieclips.load(video_filepath)
 
         camera = bpy.context.scene.camera
         if not camera:
-            raise ValueError("No camera has been found in scene. Can't import image as camera background.")
+            raise ValueError("No camera has been found in scene. Can't import video as camera background.")
 
         camera.data.show_background_images = True
         try:
             background = camera.data.background_images[0]
         except IndexError:
-            background = camera.data.background_images.new()        
-        imported_image.source = 'SEQUENCE'
-        background.image = imported_image
+            background = camera.data.background_images.new()
 
-        self.log.info(f"Image at path {imported_image.filepath} has been correctly loaded in scene as camera background.")
+        background.source = 'MOVIE_CLIP'
+        background.clip = imported_video
+
+        self.log.info(f"Video at path {imported_video.filepath} has been correctly loaded in scene as camera background.")
