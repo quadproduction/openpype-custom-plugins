@@ -40,5 +40,5 @@ class ValidateFrameStart(
         print(scene_frame_start)
         if registered_frame_start != scene_frame_start:
             raise RuntimeError(
-                f"Frame start for scene ({scene_frame_start} if different from OpenPype's frame start ({registered_frame_start}).)"
+                f"Frame start for scene ({scene_frame_start}) if different from OpenPype's frame start ({registered_frame_start}).)"
             )
