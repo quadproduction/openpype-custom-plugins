@@ -30,14 +30,12 @@ class ValidateFrameStart(
     optional = True
 
     def process(self, context):
-        registered_frame_start = context.data.get('frameStart')
-        if not registered_frame_start:
+        registered_frame_start = context.data.get('frameStart', None)
+        if registered_frame_start is None:
             raise RuntimeError(
                 "Can't retrieve frame start information from OpenPype."
             )
         scene_frame_start = bpy.context.scene.frame_start
-        print(registered_frame_start)
-        print(scene_frame_start)
         if registered_frame_start != scene_frame_start:
             raise RuntimeError(
                 f"Frame start for scene ({scene_frame_start}) if different from OpenPype's frame start ({registered_frame_start}).)"
