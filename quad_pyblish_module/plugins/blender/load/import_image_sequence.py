@@ -17,9 +17,9 @@ from openpype.hosts.blender.api.pipeline import (
 )
 
 class ImageSequenceLoader(plugin.AssetLoader):
-    """Load FBX models.
+    """Load Image Sequence in Blender.
 
-    Stores the imported asset in an empty named after the asset.
+    Create background image sequence for active camera and assign selected images.
     """
 
     families = ["image", "render"]
@@ -41,7 +41,6 @@ class ImageSequenceLoader(plugin.AssetLoader):
             context: Full parenthood of representation to load
             options: Additional settings dictionary
         """
-        print(context)
         image_filepath = self.filepath_from_context(context)
         imported_image = bpy.data.images.load(image_filepath)
 

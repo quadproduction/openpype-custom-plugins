@@ -17,9 +17,9 @@ from openpype.hosts.blender.api.pipeline import (
 )
 
 class ImageVideo(plugin.AssetLoader):
-    """Load FBX models.
+    """Load Video in Blender.
 
-    Stores the imported asset in an empty named after the asset.
+    Create background movie clip for active camera and assign selected video.
     """
 
     families = ["image", "render", "review"]

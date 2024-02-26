@@ -15,9 +15,9 @@ from openpype.hosts.blender.api.pipeline import (
 )
 
 class ImageReferenceLoader(plugin.AssetLoader):
-    """Load FBX models.
+    """Load Image in Blender as reference.
 
-    Stores the imported asset in an empty named after the asset.
+    Create image in empty and put it in _REF collection.
     """
 
     families = ["image", "render", "review"]
