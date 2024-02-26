@@ -96,8 +96,7 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         lib.execute_george_through_file("\n".join(george_script_lines))
 
         instance.data["representations"].extend(new_psd_repres)
-        print('### REPRESENTATIONS')
-        print(instance.data["representations"])
+
         self.log.info(
             "Representations: {}".format(
                 json.dumps(
