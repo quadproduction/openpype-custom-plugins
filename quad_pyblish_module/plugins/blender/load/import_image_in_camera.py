@@ -17,9 +17,9 @@ from openpype.hosts.blender.api.pipeline import (
 )
 
 class ImageCameraLoader(plugin.AssetLoader):
-    """Load FBX models.
+    """Load Image in Blender as background in camera.
 
-    Stores the imported asset in an empty named after the asset.
+    Create background image for active camera and assign selected image.
     """
 
     families = ["image", "render", "review"]
