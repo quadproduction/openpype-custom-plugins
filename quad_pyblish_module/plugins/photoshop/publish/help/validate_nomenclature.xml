@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<error id="main">
+<title>Subset name</title>
+<description>
+## Invalid Nomenclature
+
+Layer name doesn't has the correct name, based on the following recommendations :
+- Green layers corresponds to 'REF' and should be named :
+    - 'XX_REF' for groups
+    - 'XX_REF_[layer name]' for layers
+- Yellow layers corresponds to 'UTIL' and should be named :
+    - 'XX_UTIL' for groups
+    - 'XX_UTIL_[layer name]' for layers
+- Blue layers corresponds to 'BG' and should be named :
+    - '[layer number]_BG' for groups
+    - '[layer number]_BG _[layer name]' for layers
+- Red layers corresponds to 'CH' and should be named :
+    - '[layer number]_CH' for groups
+    - '[layer number]_CH _[layer name]' for layers
+
+
+{msg}
+
+### How to repair?
+
+You can fix this with "repair" button on the right and press Refresh publishing button at the bottom right.
+</description>
+
+</error>
+</root>
