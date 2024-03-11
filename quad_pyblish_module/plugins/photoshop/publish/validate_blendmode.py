@@ -25,14 +25,7 @@ class ValidateBlendModeRepair(pyblish.api.Action):
 
 class ValidateBlendMode(OptionalPyblishPluginMixin,
     pyblish.api.ContextPlugin):
-    """Validate the instance asset is the current selected context asset.
-
-    As it might happen that multiple worfiles are opened, switching
-    between them would mess with selected context.
-    In that case outputs might be output under wrong asset!
-
-    Repair action will use Context asset value (from Workfiles or Launcher)
-    Closing and reopening with Workfiles will refresh  Context value.
+    """Validate if the blendMode is set properly on Layers, NORMAL, and Groups, PASSTHROUGH
     """
 
     label = "Validate BlendMode"
