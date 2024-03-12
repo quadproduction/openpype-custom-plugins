@@ -17,7 +17,7 @@ class ValidateBlendModeRepair(pyblish.api.Action):
     def process(self, context, plugin):
 
         stub = photoshop.stub()
-        failed = context.data['transientData']["ValidateBlendMode"]
+        failed = context.data['transientData'][ValidateBlendMode.__name__]
 
         for layer, info in failed.items():
             stub.set_blendmode(layer_name=layer, blendMode_name=info["defaultBlendMode"])
