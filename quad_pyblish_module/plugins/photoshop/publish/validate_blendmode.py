@@ -23,16 +23,20 @@ class ValidateBlendModeRepair(pyblish.api.Action):
             stub.set_blendmode(layer_name=layer, blendMode_name=info["defaultBlendMode"])
 
 
-class ValidateBlendMode(OptionalPyblishPluginMixin,
-    pyblish.api.ContextPlugin):
+class ValidateBlendMode(
+        OptionalPyblishPluginMixin,
+        pyblish.api.ContextPlugin
+    ):
     """Validate if the blendMode is set properly on Layers, NORMAL, and Groups, PASSTHROUGH
     """
 
     label = "Validate BlendMode"
     hosts = ["photoshop"]
-    optional = True
-    actions = [ValidateBlendModeRepair]
     order = ValidateContentsOrder
+    families = ["image"]
+    actions = [ValidateBlendModeRepair]
+    optional = True
+    active = False
 
     def process(self, context):
 
