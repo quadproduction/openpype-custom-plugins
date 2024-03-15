@@ -122,7 +122,8 @@ class ValidateNomenclature(
     order = ValidateContentsOrder
     families = ["image"]
     actions = [ValidateNomenclatureRepair]
-    optional = True
+    optional = True    
+    active = False
 
     def process(self, context):
         if not self.is_active(context.data):
