@@ -42,10 +42,6 @@ def _check_color_error(color):
     return False if color in [data.value for data in ColorMatches] else True
 
 
-def _check_have_parent(parent_list):
-    return True if parent_list else False
-
-
 def _generate_layer_with_error(layer, group_error, color_error):
     return {
         'PSItem': layer,
@@ -53,23 +49,24 @@ def _generate_layer_with_error(layer, group_error, color_error):
         'color_error': color_error
     }
 
+
 def _check_layer_is_clean(layer, layers_errors):
-    parent = _check_have_parent(layer.parents)
-    color = _check_color_error(layer.color_code)
+    have_parents = bool(layer.parents)
+    have_bad_color = _check_color_error(layer.color_code)
 
     # return if layer is group, have no parent, and color is correct
-    if not parent and not color and _is_group(layer):
+    if not have_parents and not have_bad_color and _is_group(layer):
         return
     
     # return if layer have parent, and color is correct
-    if parent and not color and not _is_group(layer):
+    if have_parents and not have_bad_color and not _is_group(layer):
         return
     
     layers_errors.append(_generate_layer_with_error(
             layer=layer,
             # reverse the parent value to reflect the layer type(layer must have a parent, groups don't)
-            group_error=parent if _is_group(layer) else not parent,
-            color_error=color
+            group_error=have_parents if _is_group(layer) else not have_parents,
+            color_error=have_bad_color
         )
         )
 
@@ -106,15 +103,14 @@ class ValidateLayersOrganization(
 
         if layers_errors:
             msg = (
-                f"This layers need to be reorganized :\n-" + \
+                f"This layers need to be reorganized :\n-" +
                 '\n-'.join([layer["PSItem"].name for layer in layers_errors if layer["group_error"]])
             )
 
             msg = msg + "\n" +(
-                f"This layers have color issues :\n-" + \
+                f"This layers have color issues :\n-" +
                 '\n-'.join([layer["PSItem"].name for layer in layers_errors if layer["color_error"]])
             )
-
 
             if not context.data.get('transientData'):
                 context.data['transientData'] = dict()
@@ -122,5 +118,3 @@ class ValidateLayersOrganization(
             context.data['transientData'][self.__class__.__name__] = layers_errors
 
             raise PublishXmlValidationError(self, msg)
-        
-    

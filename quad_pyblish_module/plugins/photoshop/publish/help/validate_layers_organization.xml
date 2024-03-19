@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 <error id="main">
-<title>Layer Organzation</title>
+<title>Layer Organization</title>
 <description>
-## Invalid Organzation
+## Invalid Organization
 
 Layers aren't properly organized:
 
 - Layers must all be in ONE group
 - No groups are allowed in groups
 
-Or you have color problem of your layers, only the following are autorized:
+Or you have color problem of your layers, only the following are authorized:
 
 - REF = Green
 - UTIL = Yellow
-- BG = Bleue
+- BG = Blue
 - CH = Red
 - PNG = Violet
 
