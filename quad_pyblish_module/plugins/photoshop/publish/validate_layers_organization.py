@@ -1,7 +1,3 @@
-import re
-from copy import deepcopy
-from enum import Enum
-
 import pyblish.api
 
 from openpype.hosts.photoshop import api as photoshop
@@ -10,6 +6,8 @@ from openpype.pipeline.publish import (
     ValidateContentsOrder,
     PublishXmlValidationError  
 )
+
+from .common import ColorMatches
 
 
 class ValidateLayersOrganizationRepair(pyblish.api.Action):
@@ -24,14 +22,6 @@ class ValidateLayersOrganizationRepair(pyblish.api.Action):
         stub.select_layers(layer['PSItem'] for layer in context.data['transientData'][ValidateLayersOrganization.__name__])
     
         return True
-
-
-class ColorMatches(Enum):
-    REF = 'grain'
-    UTIL = 'yellowColor'
-    BG = 'blue'
-    CH = 'red'
-    PNG = "violet"
 
 
 def _is_group(layer):

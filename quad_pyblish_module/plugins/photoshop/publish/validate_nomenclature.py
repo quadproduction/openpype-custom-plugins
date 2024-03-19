@@ -1,5 +1,3 @@
-import re
-from copy import deepcopy
 from enum import Enum
 
 import pyblish.api
@@ -10,6 +8,8 @@ from openpype.pipeline.publish import (
     ValidateContentsOrder,
     PublishXmlValidationError  
 )
+
+from .common import ColorMatches
 
 
 class ValidateNomenclatureRepair(pyblish.api.Action):
@@ -24,13 +24,6 @@ class ValidateNomenclatureRepair(pyblish.api.Action):
         stub.rename_layers(context.data['transientData'][ValidateNomenclature.__name__])
     
         return True
-
-
-class ColorMatches(Enum):
-    REF = 'grain'
-    UTIL = 'yellowColor'
-    BG = 'blue'
-    CH = 'red'
 
 
 def _guess_group_prefix_from_color_code(layer, numbering):
