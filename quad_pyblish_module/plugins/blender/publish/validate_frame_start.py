@@ -15,12 +15,7 @@ from openpype.pipeline import (
 class ValidateFrameStart(
     OptionalPyblishPluginMixin,
     pyblish.api.ContextPlugin):
-    """Camera must have a keyframe at frame 0.
-
-    Unreal shifts the first keyframe to frame 0. Forcing the camera to have
-    a keyframe at frame 0 will ensure that the animation will be the same
-    in Unreal and Blender.
-    """
+    """Ensure frameStart is equal to the value wanted by OpenPype."""
 
     order = ValidateContentsOrder
     hosts = ["blender"]
