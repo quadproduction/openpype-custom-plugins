@@ -58,6 +58,9 @@ class IntegrateKitsuSequence(pyblish.api.InstancePlugin):
                 self.log.warning("No publish path found in representation.")
                 raise IndexError
             
+            if "burnin" in representation.get("tags", []):
+                filesnames = ["{}.{}".format(str("%04d" % (index+1)), extension) for index, file in enumerate(filesnames)]
+            
             for filename in filesnames:
                 image_filepath = _generate_files_paths(published_path, extension, filename)
                 gazu.task.add_preview(

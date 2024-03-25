@@ -121,6 +121,11 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
     def get_instance_attr_defs(self):
         return [
             BoolDef(
+                "publish_sequence",
+                label="Review",
+                default=self.publish_sequence
+            ),
+            BoolDef(
                 "keep_layers_transparency",
                 label="Keep Layers Transparency",
                 default=self.keep_layers_transparency
@@ -129,10 +134,5 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
                 "extract_psd",
                 label="Extract PSD",
                 default=self.extract_psd
-            ),
-            BoolDef(
-                "publish_sequence",
-                label="Review",
-                default=self.publish_sequence
             )
         ]
