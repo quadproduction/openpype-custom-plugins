@@ -62,7 +62,7 @@ class IntegrateKitsuSequence(pyblish.api.InstancePlugin):
                 filenames = ["{:04d}.{}".format(index + 1, extension) for index, file in enumerate(filenames)]
 
             for filename in filenames:
-                image_filepath = _generate_files_paths(published_path, extension, filename)
+                image_filepath = _rename_output_filepath(published_path, extension, filename)
                 gazu.task.add_preview(
                     task_id, comment_id, image_filepath, normalize_movie=True
                 )
@@ -70,5 +70,6 @@ class IntegrateKitsuSequence(pyblish.api.InstancePlugin):
             self.log.info("{} images has been uploaded to Kitsu.".format(len(filenames)))
 
 
-def _generate_files_paths(published_path, extension, filename):
+def _rename_output_filepath(published_path, extension, filename):
+    # Replace frame number + extension in given filepath with new filename
     return re.sub(rf"\d{4}.{extension}", filename, published_path)
