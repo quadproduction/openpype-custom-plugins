@@ -121,7 +121,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
         return [
             BoolDef(
                 "mark_for_review",
-                label="Review by default",
+                label="Review",
                 default=self.mark_for_review
             ),
             BoolDef(
