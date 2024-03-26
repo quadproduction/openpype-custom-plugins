@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<error id="main">
+<title>Layer Organization</title>
+<description>
+## Invalid Organization
+
+Layers aren't properly organized:
+
+- Layers must all be in ONE group
+- No groups are allowed in groups
+
+Or you have color problem of your layers, only the following are authorized:
+
+- REF = Green
+- UTIL = Yellow
+- BG = Blue
+- CH = Red
+- PNG = Violet
+
+### How to repair?
+
+You can select the default layers with the "Select Layers" button on the right and correct them.
+</description>
+
+</error>
+</root>
