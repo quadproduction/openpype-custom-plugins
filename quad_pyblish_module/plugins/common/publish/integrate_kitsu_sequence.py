@@ -72,4 +72,4 @@ class IntegrateKitsuSequence(pyblish.api.InstancePlugin):
 
 def _rename_output_filepath(published_path, extension, filename):
     # Replace frame number + extension in given filepath with new filename
-    return re.sub(rf"\d{4}.{extension}", filename, published_path)
+    return re.sub(r"\d{4}\." + re.escape(extension), filename, published_path)
