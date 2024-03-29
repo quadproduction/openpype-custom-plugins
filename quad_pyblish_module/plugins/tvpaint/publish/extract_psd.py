@@ -6,6 +6,7 @@ import tempfile
 from pathlib import Path
 
 import pyblish.api
+import logging
 from openpype.settings import get_project_settings
 from openpype.hosts.tvpaint.api import lib
 

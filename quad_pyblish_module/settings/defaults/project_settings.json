@@ -35,6 +35,21 @@
                     "default_variants": []
                 }
             }
+        },
+        "photoshop": {
+            "layers_templates": {
+                "default_groups_template": "{group_number:02d}0_{type}",
+                "default_layers_template": "{group_number:02d}0_{layer_number}_{type}_{layer_name}",
+                "overriden_groups_templates": [{}],
+                "overriden_layers_templates": [{}]
+            },
+            "layers_types_colors": {
+                "red": "",
+                "blue": "",
+                "violet": "",
+                "yellowColor": "",
+                "grain": ""
+            }
         }
     }
 }
