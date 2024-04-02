@@ -39,16 +39,18 @@
         "photoshop": {
             "layers_templates": {
                 "default_groups_template": "{group_number:02d}0_{type}",
+                "default_groups_filter": "^XX_[A-Z]{3,4}_",
                 "default_layers_template": "{group_number:02d}0_{layer_number}_{type}_{layer_name}",
-                "overriden_groups_templates": [{}],
-                "overriden_layers_templates": [{}]
+                "default_layers_filter": "^\\d{3}_[a-z]_[A-Z]{2,4}_",
+                "overriden_groups_templates": [{"layer_type" : "REF", "template":"XX_{type}"}, {"layer_type" : "UTIL", "template":"XX_{type}"}],
+                "overriden_layers_templates": [{"layer_type" : "REF", "template":"XX_{type}_{layer_name}"}, {"layer_type" : "UTIL", "template":"XX_{type}_{layer_name}"}]
             },
             "layers_types_colors": {
-                "red": "",
-                "blue": "",
-                "violet": "",
-                "yellowColor": "",
-                "grain": ""
+                "red": "CH",
+                "blue": "BG",
+                "violet": "PNG",
+                "yellowColor": "UTIL",
+                "grain": "REF"
             }
         }
     }

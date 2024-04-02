@@ -22,8 +22,16 @@
                         "label": "Default groups template"
                     },{
                         "type": "text",
+                        "key": "default_groups_filter",
+                        "label": "Default groups filtering"
+                    },{
+                        "type": "text",
                         "key": "default_layers_template",
                         "label": "Default layers template"
+                    },{
+                        "type": "text",
+                        "key": "default_layers_filter",
+                        "label": "Default layers filtering"
                     },
                     {
                         "type": "list",

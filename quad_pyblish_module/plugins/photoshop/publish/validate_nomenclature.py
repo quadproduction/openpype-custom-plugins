@@ -1,6 +1,7 @@
 from enum import Enum
 import os
 import logging
+import re
 
 import pyblish.api
 
@@ -69,7 +70,7 @@ class ValidateNomenclature(
     families = ["image"]
     actions = [ValidateNomenclatureRepair]
     optional = True
-    active = True
+    active = False
 
     def process(self, context):
         if not self.is_active(context.data):
@@ -137,6 +138,7 @@ class ValidateNomenclature(
 
     def _rename(self, entity_type, layer, group_index, layer_index=None):
         template = None
+        filtering = None
         layer_type = self.layers_types_colors.get(layer.color_code, '??')
         overriden_templates = self.layers_templates.get(f'overriden_{entity_type}_templates')
 
@@ -152,11 +154,22 @@ class ValidateNomenclature(
             if not template:
                 logging.warning(f"Can't find template for given entity {entity_type}. Can't rename object.")
                 return layer.name
+            
+        if not filtering:
+            filtering = self.layers_templates.get(f"default_{entity_type}_filter", None)
+
+            if not filtering:
+                logging.warning(f"Can't find filter for given entity {entity_type}. Can't scan object.")
+                return layer.name
     
         new_layer_name = template.format(
             **self._pack_layer_data(layer, layer_type, group_index, layer_index)
         )
         if new_layer_name == layer.name:
+            return
+        
+        prefix_reg = re.compile(filtering)
+        if prefix_reg.match(layer.name):
             return
         
         return _generate_layer_with_id_name(
