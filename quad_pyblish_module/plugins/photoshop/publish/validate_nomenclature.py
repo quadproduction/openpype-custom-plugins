@@ -78,11 +78,16 @@ class ValidateNomenclature(
         
         project_name = os.environ['AVALON_PROJECT']
         project_settings = get_project_settings(project_name)
+
         try:
-            self.layers_types_colors = project_settings['fix_custom_settings']['photoshop']['layers_types_colors']
-            self.layers_templates = project_settings['fix_custom_settings']['photoshop']['layers_templates']
+            self.types_colors = project_settings['fix_custom_settings']['photoshop']['types_colors']
+            self.groups_templates = project_settings['fix_custom_settings']['photoshop']['groups']['templates']
+            self.layers_templates = project_settings['fix_custom_settings']['photoshop']['layers']['templates']
+            self.groups_expressions = project_settings['fix_custom_settings']['photoshop']['groups']['expressions']
+            self.layers_expressions = project_settings['fix_custom_settings']['photoshop']['layers']['expressions']
+
         except KeyError as err:
-            msg = "Layers types colors or templates has not been found in settings. ValidateNomenclature plugin can't be executed."
+            msg = "Types colors, templates or expressions are missing from settings. ValidateNomenclature plugin can't be executed."
             logging.error(msg)
             logging.error(err)
             raise Exception
@@ -93,11 +98,13 @@ class ValidateNomenclature(
         renamed_layers = list()
 
         for group_index, group_layer in enumerate(_extract_groups(layers), 1):
-            renamed_group = self.rename_group(group_layer, group_index)
+
+            renamed_group = self.rename_group_if_needed(group_layer, group_index)
             if renamed_group: renamed_layers.append(renamed_group)
 
             for layer_index, layer in enumerate(_extract_layers_from_group(layers, group_layer), 1):
-                renamed_layer = self.rename_layer(layer, group_index, layer_index)
+
+                renamed_layer = self.rename_layer_if_needed(layer, group_index, layer_index)
                 if renamed_layer: renamed_layers.append(renamed_layer)
 
         if renamed_layers:
@@ -121,55 +128,87 @@ class ValidateNomenclature(
             raise PublishXmlValidationError(self, msg,
                                             formatting_data=formatting_data)
         
-    def rename_group(self, layer, group_index):
-        return self._rename(
-            entity_type="groups", 
-            layer=layer, 
-            group_index=group_index,
+    def rename_group_if_needed(self, group_layer, group_index):
+        renamed_group = None
+        group_template = self.get_groups_template(group_layer)
+
+        if not self.validate_group_name(group_template, group_layer.name):
+            renamed_group = self.rename(group_template, group_layer, group_index)
+
+        return renamed_group
+
+    def rename_layer_if_needed(self, layer, group_index, layer_index):
+        renamed_layer = None
+        layer_template = self.get_layers_template(layer)
+
+        if not self.validate_layer_name(layer_template, layer.name):
+            renamed_layer = self.rename(layer_template, layer, group_index, layer_index)
+
+        return renamed_layer
+
+    def get_groups_template(self, group):
+        return self._get_template(
+            templates=self.groups_templates,
+            layer=group
         )
 
-    def rename_layer(self, layer, group_index, layer_index):
-        return self._rename(
-            entity_type="layers", 
-            layer=layer, 
-            group_index=group_index,
-            layer_index=layer_index
+    def get_layers_template(self, layer):
+        return self._get_template(
+            templates=self.layers_templates,
+            layer=layer
         )
-
-    def _rename(self, entity_type, layer, group_index, layer_index=None):
+        
+    def _get_template(self, templates, layer):
         template = None
-        filtering = None
-        layer_type = self.layers_types_colors.get(layer.color_code, '??')
-        overriden_templates = self.layers_templates.get(f'overriden_{entity_type}_templates')
+        overriden_templates = templates.get(f'overriden')
 
         if overriden_templates:
             template = self._search_for_overriden_template(
                 filters_set=overriden_templates,
-                layer_type=layer_type
+                layer_type=self.types_colors.get(layer.color_code, '??')
             )
 
         if not template:
-            template = self.layers_templates.get(f"default_{entity_type}_template", None)
+            template = templates.get(f"default", None)
 
             if not template:
-                logging.warning(f"Can't find template for given entity {entity_type}. Can't rename object.")
+                logging.warning(f"Can't find template correct template for layer {layer.name}. Can't rename it.")
                 return layer.name
             
-        if not filtering:
-            filtering = self.layers_templates.get(f"default_{entity_type}_filter", None)
+        return template
 
-            if not filtering:
-                logging.warning(f"Can't find filter for given entity {entity_type}. Can't scan object.")
-                return layer.name
+    def validate_group_name(self, template, group_name):
+        return self._validate_name(
+            template=template,
+            layer_name=group_name,
+            expressions=self.groups_expressions
+        )
     
+    def validate_layer_name(self, template, layer_name):
+        return self._validate_name(
+            template=template,
+            layer_name=layer_name,
+            expressions=self.layers_expressions
+        )
+    
+    def _validate_name(self, template, layer_name, expressions):
+        template = self._remove_format_specifications(template)
+        template_regex = template.format(**expressions)
+        return re.compile(template_regex).match(layer_name)
+        
+    def _remove_format_specifications(self, template):
+        return re.sub(
+            pattern=r'(:)(.*?)(?=})',
+            repl='',
+            string=template
+        )
+
+    def rename(self, template, layer, group_index, layer_index=None):
+        layer_type = self.types_colors.get(layer.color_code, '??')
         new_layer_name = template.format(
             **self._pack_layer_data(layer, layer_type, group_index, layer_index)
         )
         if new_layer_name == layer.name:
-            return
-        
-        prefix_reg = re.compile(filtering)
-        if prefix_reg.match(layer.name):
             return
         
         return _generate_layer_with_id_name(

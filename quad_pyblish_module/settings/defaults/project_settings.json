@@ -37,15 +37,32 @@
             }
         },
         "photoshop": {
-            "layers_templates": {
-                "default_groups_template": "{group_number:02d}0_{type}",
-                "default_groups_filter": "^XX_[A-Z]{3,4}_",
-                "default_layers_template": "{group_number:02d}0_{layer_number}_{type}_{layer_name}",
-                "default_layers_filter": "^\\d{3}_[a-z]_[A-Z]{2,4}_",
-                "overriden_groups_templates": [{"layer_type" : "REF", "template":"XX_{type}"}, {"layer_type" : "UTIL", "template":"XX_{type}"}],
-                "overriden_layers_templates": [{"layer_type" : "REF", "template":"XX_{type}_{layer_name}"}, {"layer_type" : "UTIL", "template":"XX_{type}_{layer_name}"}]
+            "groups": {
+                "templates": {
+                    "default": "{group_number:02d}0_{type}",
+                    "overriden": [{"layer_type" : "REF", "template":"XX_{type}"}, {"layer_type" : "UTIL", "template":"XX_{type}"}]
+                },
+                "expressions": {
+                    "default": "(.+)",
+                    "layer_name": "[a-zA-Z]{1,}",
+                    "type": "(REF|UTIL)",
+                    "group_number": "\\d{3}"
+                }
             },
-            "layers_types_colors": {
+            "layers": {
+                "templates": {
+                    "default": "{group_number:02d}0_{layer_number}_{type}_{layer_name}",
+                    "overriden": [{"layer_type" : "REF", "template":"XX_{type}_{layer_name}"}, {"layer_type" : "UTIL", "template":"XX_{type}_{layer_name}"}]
+                },
+                "expressions": {
+                    "default": "(.+)",
+                    "layer_name": "[a-zA-Z]{1,}",
+                    "type": "(CH|BG|PNG)",
+                    "group_number": "\\d{3}",
+                    "layer_number": "[a-z]"
+                }
+            },
+            "types_colors": {
                 "red": "CH",
                 "blue": "BG",
                 "violet": "PNG",

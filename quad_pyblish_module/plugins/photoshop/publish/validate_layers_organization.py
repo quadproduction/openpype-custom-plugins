@@ -12,13 +12,6 @@ from openpype.pipeline.publish import (
 
 from enum import Enum
 
-class ColorMatches(Enum):
-    REF = 'grain'
-    UTIL = 'yellowColor'
-    BG = 'blue'
-    CH = 'red'
-    PNG = "violet"
-
 
 class ValidateLayersOrganizationRepair(pyblish.api.Action):
     """Just select the layers that are with errors"""
