@@ -44,9 +44,9 @@
                 },
                 "expressions": {
                     "default": "(.+)",
-                    "layer_name": "[a-zA-Z]{1,}",
+                    "layer_name": "(.+)",
                     "type": "(REF|UTIL)",
-                    "group_number": "\\d{3}"
+                    "group_number": "\\d{2}"
                 }
             },
             "layers": {
@@ -56,9 +56,9 @@
                 },
                 "expressions": {
                     "default": "(.+)",
-                    "layer_name": "[a-zA-Z]{1,}",
-                    "type": "(CH|BG|PNG)",
-                    "group_number": "\\d{3}",
+                    "layer_name": "(.+)",
+                    "type": "(CH|BG|PNG|REF|UTIL)",
+                    "group_number": "\\d{2}",
                     "layer_number": "[a-z]"
                 }
             },
