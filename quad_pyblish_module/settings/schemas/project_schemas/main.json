@@ -6,6 +6,10 @@
     "children": [
         {
             "type": "template",
+            "name": "fix_custom_settings/aftereffects"
+        },
+        {
+            "type": "template",
             "name": "fix_custom_settings/tvpaint"
         }
     ]

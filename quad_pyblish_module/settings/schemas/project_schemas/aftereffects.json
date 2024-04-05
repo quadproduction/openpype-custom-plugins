@@ -1,0 +1,48 @@
+[
+    {
+        "type": "dict",
+        "key": "aftereffects",
+        "label": "After Effects",
+        "collapsible": true,
+        "children": [
+            {
+                "type": "dict",
+                "key": "publish",
+                "label": "Publish",
+                "collapsible": true,
+                "children": [
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "CollectAERender",
+                        "label": "Collect Render",
+                        "is_group": true,
+                        "children": [
+                            {
+                                "type": "list",
+                                "key": "format_conversion",
+                                "label": "Format names conversion",
+                                "use_label_wrap": true,
+                                "object_type": {
+                                    "type": "dict",
+                                    "children": [
+                                        {
+                                            "type": "text",
+                                            "key": "format",
+                                            "label": "After Effects format"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "key": "converted_label",
+                                            "label": "Converted format label"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

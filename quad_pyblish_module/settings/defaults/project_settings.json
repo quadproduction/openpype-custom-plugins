@@ -1,5 +1,33 @@
 {
     "project_settings/fix_custom_settings": {
+        "aftereffects": {
+            "publish": {
+                "CollectAERender": {
+                    "format_conversion": [
+                        {
+                            "format": "PNG Sequence",
+                            "converted_label": "png"
+                        },
+                        {
+                            "format": "Photoshop Sequence",
+                            "converted_label": "psd"
+                        },
+                        {
+                            "format": "AVI",
+                            "converted_label": "avi"
+                        },
+                        {
+                            "format": "h.264",
+                            "converted_label": "h264"
+                        },
+                        {
+                            "format": "QuickTime",
+                            "converted_label": "mov"
+                        }
+                    ]
+                }
+            } 
+        },
         "tvpaint": {
             "publish":  {
                 "ExtractPsd":  {
