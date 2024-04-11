@@ -1,0 +1,198 @@
+[
+    {
+        "type": "dict",
+        "key": "photoshop",
+        "label": "Photoshop",
+        "collapsible": true,
+        "children": [
+            {
+                "type": "dict",
+                "key": "groups",
+                "label": "Groups",
+                "collapsible": true,
+                "children": [
+                    {
+                        "type": "label",
+                        "label": "When checking for nomenclature, default templates will be used as target names. <br> Overrides can be used to redefine new templates, depending of the group type that is given.<br>Available informations are : <ul><li><b>layer_name :</b> name of the group as retrieved in scene.</li><li><b>type :</b> type of layer as defined in layers_types_colors settings</li><li><b>group_number :</b> position of group, from bottom to top, starting from 1.</li></ul>For each of these informations, you can also set an expression filter, which will be used to check if the given property respect a specific nomenclature."
+                    },
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "templates",
+                        "label": "Templates",
+                        "children": [
+                            {
+                                "type": "text",
+                                "key": "default",
+                                "label": "Default template"
+                            },
+                            {
+                                "type": "list",
+                                "key": "overriden",
+                                "label": "Overrides",
+                                "use_label_wrap": true,
+                                "object_type": {
+                                    "type": "dict",
+                                    "children": [
+                                        {
+                                            "type": "text",
+                                            "key": "layer_type",
+                                            "label": "Layer Type"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "key": "template",
+                                            "label": "Template"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "expressions",
+                        "label": "Expressions",
+                        "children": [
+                            {
+                                "type": "text",
+                                "key": "default",
+                                "label": "Default expression"
+                            },
+                            {
+                                "type": "text",
+                                "key": "layer_name",
+                                "label": "Layer name"
+                            },
+                            {
+                                "type": "text",
+                                "key": "type",
+                                "label": "Type"
+                            },
+                            {
+                                "type": "text",
+                                "key": "group_number",
+                                "label": "Group number"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "dict",
+                "collapsible": true,
+                "key": "layers",
+                "label": "Layers",
+                "is_group": true,
+                "children": [
+                    {
+                        "type": "label",
+                        "label": "When checking for nomenclature, default templates will be used as target names. <br> Overrides can be used to redefine new templates, depending of the layer that is given.<br>Available informations are : <ul><li><b>layer_name :</b> name of the layer as retrieved in scene.</li><li><b>type :</b> type of layer as defined in layers_types_colors settings</li><li><b>group_number :</b> position of group parent, from bottom to top, starting from 1.</li><li><b>layer_number :</b> position of layer inside of a group, from bottom to top, starting from 1.</ul>For each of these informations, you can also set an expression filter, which will be used to check if the given property respect a specific nomenclature."
+                    },
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "templates",
+                        "label": "Templates",
+                        "children": [
+                            {
+                                "type": "text",
+                                "key": "default",
+                                "label": "Default template"
+                            },
+                            {
+                                "type": "list",
+                                "key": "overriden",
+                                "label": "Overrides",
+                                "use_label_wrap": true,
+                                "object_type": {
+                                    "type": "dict",
+                                    "children": [
+                                        {
+                                            "type": "text",
+                                            "key": "layer_type",
+                                            "label": "Layer Type"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "key": "template",
+                                            "label": "Template"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "dict",
+                        "collapsible": true,
+                        "key": "expressions",
+                        "label": "Expressions",
+                        "children": [
+                            {
+                                "type": "text",
+                                "key": "default",
+                                "label": "Default expression"
+                            },
+                            {
+                                "type": "text",
+                                "key": "layer_name",
+                                "label": "Layer name"
+                            },
+                            {
+                                "type": "text",
+                                "key": "type",
+                                "label": "Type"
+                            },
+                            {
+                                "type": "text",
+                                "key": "group_number",
+                                "label": "Group number"
+                            },
+                            {
+                                "type": "text",
+                                "key": "layer_number",
+                                "label": "Layer number"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "types_colors",
+                "label": "Types colors",
+                "type": "dict",
+                "collapsible": true,
+                "is_group": true,
+                "children": [
+                    {
+                        "type": "text",
+                        "key": "red",
+                        "label": "Red"
+                    },
+                    {
+                        "type": "text",
+                        "key": "blue",
+                        "label": "Blue"
+                    },
+                    {
+                        "type": "text",
+                        "key": "violet",
+                        "label": "Violet"
+                    },
+                    {
+                        "type": "text",
+                        "key": "yellowColor",
+                        "label": "Yellow"
+                    },
+                    {
+                        "type": "text",
+                        "key": "grain",
+                        "label": "Green"
+                    }
+                ]
+            }
+        ]
+    }
+]

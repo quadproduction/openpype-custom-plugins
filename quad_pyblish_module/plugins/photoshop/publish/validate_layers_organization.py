@@ -1,13 +1,16 @@
+import os
+import logging
 import pyblish.api
 
 from openpype.hosts.photoshop import api as photoshop
 from openpype.pipeline import OptionalPyblishPluginMixin
+from openpype.settings import get_project_settings
 from openpype.pipeline.publish import (
     ValidateContentsOrder,
     PublishXmlValidationError  
 )
 
-from .common import ColorMatches
+from enum import Enum
 
 
 class ValidateLayersOrganizationRepair(pyblish.api.Action):
@@ -28,8 +31,8 @@ def _is_group(layer):
     return layer.group
 
 
-def _check_color_error(color):
-    return False if color in [data.value for data in ColorMatches] else True
+def _check_color_error(color, layers_types_colors):
+    return False if color in layers_types_colors.keys() else True
 
 
 def _generate_layer_with_error(layer, group_error, color_error):
@@ -40,9 +43,9 @@ def _generate_layer_with_error(layer, group_error, color_error):
     }
 
 
-def _check_layer_is_clean(layer, layers_errors):
+def _check_layer_is_clean(layer, layers_errors, layers_types_colors):
     have_parents = bool(layer.parents)
-    have_bad_color = _check_color_error(layer.color_code)
+    have_bad_color = _check_color_error(layer.color_code, layers_types_colors)
 
     # return if layer is group, have no parent, and color is correct
     if not have_parents and not have_bad_color and _is_group(layer):
@@ -79,9 +82,18 @@ class ValidateLayersOrganization(
     active = False
 
     def process(self, context):
-
         if not self.is_active(context.data):
             return
+        
+        project_name = os.environ['AVALON_PROJECT']
+        project_settings = get_project_settings(project_name)
+        try:
+            layers_types_colors = project_settings['fix_custom_settings']['photoshop']['types_colors']
+        except KeyError as err:
+            msg = "Layers types colors has not been found in settings. ValidateNomenclature plugin can't be executed."
+            logging.error(msg)
+            logging.error(err)
+            raise Exception
 
         stub = photoshop.stub()
         layers = stub.get_layers()
@@ -89,7 +101,7 @@ class ValidateLayersOrganization(
         layers_errors = list()
 
         for layer in layers:
-            _check_layer_is_clean(layer, layers_errors)
+            _check_layer_is_clean(layer, layers_errors, layers_types_colors)
 
         if layers_errors:
             msg = (
