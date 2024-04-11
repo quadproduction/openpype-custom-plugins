@@ -13,11 +13,11 @@ Layer name doesn't has the correct name, based on the following recommendations 
     - 'XX_UTIL' for groups
     - 'XX_UTIL_[layer name]' for layers
 - Blue layers corresponds to 'BG' and should be named :
-    - '[layer number]_BG' for groups
-    - '[layer number]_BG _[layer name]' for layers
+    - '[group number]_BG' for groups
+    - '[group number]_[layer number]_BG _[layer name]' for layers
 - Red layers corresponds to 'CH' and should be named :
-    - '[layer number]_CH' for groups
-    - '[layer number]_CH _[layer name]' for layers
+    - '[group number]_CH' for groups
+    - '[group number]_[layer number]_CH _[layer name]' for layers
 
 
 {msg}
