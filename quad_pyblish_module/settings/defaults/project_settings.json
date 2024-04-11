@@ -1,5 +1,37 @@
 {
     "project_settings/fix_custom_settings": {
+        "aftereffects": {
+            "publish": {
+                "CollectAERender": {
+                    "format_conversion": [
+                        {
+                            "format": "PNG Sequence",
+                            "converted_label": "png"
+                        },
+                        {
+                            "format": "Photoshop Sequence",
+                            "converted_label": "psd"
+                        },
+                        {
+                            "format": "OpenEXR Sequence",
+                            "converted_label": "exr"
+                        },
+                        {
+                            "format": "AVI",
+                            "converted_label": "avi"
+                        },
+                        {
+                            "format": "h.264",
+                            "converted_label": "h264"
+                        },
+                        {
+                            "format": "QuickTime",
+                            "converted_label": "mov"
+                        }
+                    ]
+                }
+            } 
+        },
         "tvpaint": {
             "publish":  {
                 "ExtractPsd":  {
@@ -34,6 +66,40 @@
                     "default_variant": "Main",
                     "default_variants": []
                 }
+            }
+        },
+        "photoshop": {
+            "groups": {
+                "templates": {
+                    "default": "{group_number:02d}0_{type}",
+                    "overriden": [{"layer_type" : "REF", "template":"XX_{type}"}, {"layer_type" : "UTIL", "template":"XX_{type}"}]
+                },
+                "expressions": {
+                    "default": "(.+)",
+                    "layer_name": "(.+)",
+                    "type": "(REF|UTIL)",
+                    "group_number": "\\d{2}"
+                }
+            },
+            "layers": {
+                "templates": {
+                    "default": "{group_number:02d}0_{layer_number}_{type}_{layer_name}",
+                    "overriden": [{"layer_type" : "REF", "template":"XX_{type}_{layer_name}"}, {"layer_type" : "UTIL", "template":"XX_{type}_{layer_name}"}]
+                },
+                "expressions": {
+                    "default": "(.+)",
+                    "layer_name": "(.+)",
+                    "type": "(CH|BG|PNG|REF|UTIL)",
+                    "group_number": "\\d{2}",
+                    "layer_number": "[a-z]"
+                }
+            },
+            "types_colors": {
+                "red": "CH",
+                "blue": "BG",
+                "violet": "PNG",
+                "yellowColor": "UTIL",
+                "grain": "REF"
             }
         }
     }
