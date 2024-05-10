@@ -97,7 +97,7 @@ class AddonSettingsDef(JsonFilesSettingsDef):
     #   recommended as schemas and templates may have name clashes across
     #   multiple addons
     # - it is also recommended that prefix has addon name in it
-    schema_prefix = "fix_custom_settings"
+    schema_prefix = "quad_custom_settings"
 
     def get_settings_root_path(self):
         """Implemented abstract class of JsonFilesSettingsDef.

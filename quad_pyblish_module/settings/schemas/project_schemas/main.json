@@ -1,20 +1,20 @@
 {
     "type": "dict",
-    "key": "fix_custom_settings",
-    "label": "Fix custom Settings",
+    "key": "quad_custom_settings",
+    "label": "Quad Custom Settings",
     "collapsible": true,
     "children": [
         {
             "type": "template",
-            "name": "fix_custom_settings/aftereffects"
+            "name": "quad_custom_settings/aftereffects"
         },
         {
             "type": "template",
-            "name": "fix_custom_settings/tvpaint"
+            "name": "quad_custom_settings/tvpaint"
         },
         {
             "type": "template",
-            "name": "fix_custom_settings/photoshop"
+            "name": "quad_custom_settings/photoshop"
         }
     ]
 }
