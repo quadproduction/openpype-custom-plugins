@@ -1,0 +1,30 @@
+[
+    {
+        "type": "list",
+        "key": "working_resolution_overrides",
+        "label": "Working Resolution Overrides",
+        "use_label_wrap": true,
+        "object_type": {
+            "type": "dict",
+            "children": [
+                {
+                    "key": "applications",
+                    "label": "Applications",
+                    "type": "apps-enum",
+                    "multiselection": true,
+                    "tooltip": "Applications are not \"live\" and may require to Save and refresh settings UI to update values."
+                },
+                {
+                    "type": "number",
+                    "key": "working_resolution_width",
+                    "label": "Working Resolution Width"
+                },
+                {
+                    "type": "number",
+                    "key": "working_resolution_height",
+                    "label": "Working Resolution Height"
+                }
+            ]
+        }
+    }
+]
