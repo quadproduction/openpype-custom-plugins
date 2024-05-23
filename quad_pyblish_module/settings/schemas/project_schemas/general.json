@@ -1,0 +1,42 @@
+[
+    {
+        "type": "dict",
+        "key": "windows_on_top",
+        "label": "Keep OpenPype's windows on top",
+        "collapsible": true,
+        "children": [
+            {
+                "type": "label",
+                "label": "Only the following hosts are impacted by this feature :<br />Blender, AE, Houdini, Nuke, Nuke X, Photoshop, TvPaint, Maya"
+            },
+            {
+                "type": "boolean",
+                "key": "default",
+                "label": "Default"
+            },
+            {
+                "type": "list",
+                "key": "softs",
+                "label": "Per softs",
+                "use_label_wrap": true,
+                "object_type": {
+                    "type": "dict",
+                    "children": [
+                        {
+                            "key": "applications",
+                            "label": "Applications",
+                            "type": "apps-enum",
+                            "multiselection": true,
+                            "tooltip": "Applications are not \"live\" and may require to Save and refresh settings UI to update values."
+                        },
+                        {
+                            "type": "boolean",
+                            "key": "on_top",
+                            "label": "Keep on top"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+]

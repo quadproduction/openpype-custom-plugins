@@ -1,105 +1,118 @@
 {
     "project_settings/fix_custom_settings": {
-        "aftereffects": {
-            "publish": {
-                "CollectAERender": {
-                    "format_conversion": [
-                        {
-                            "format": "PNG Sequence",
-                            "converted_label": "png"
-                        },
-                        {
-                            "format": "Photoshop Sequence",
-                            "converted_label": "psd"
-                        },
-                        {
-                            "format": "OpenEXR Sequence",
-                            "converted_label": "exr"
-                        },
-                        {
-                            "format": "AVI",
-                            "converted_label": "avi"
-                        },
-                        {
-                            "format": "h.264",
-                            "converted_label": "h264"
-                        },
-                        {
-                            "format": "QuickTime",
-                            "converted_label": "mov"
-                        }
-                    ]
-                }
-            } 
-        },
-        "tvpaint": {
-            "publish":  {
-                "ExtractPsd":  {
-                    "enabled": false
-                },
-                "ExtractJson":  {
-                    "enabled": false
-                },
-                "IntegrateKitsuSequence":  {
-                    "enabled": false
-                }
-            },
-            "create": {
-                "create_json": {
-                    "enabled": true,
-                    "default_variant": "Main",
-                    "default_variants": []
-                },
-                "create_playblast": {
-                    "enabled": true,
-                    "active_on_create": true,
-                    "mark_for_review": true,
-                    "extract_psd": false,
-                    "default_variant": "Main",
-                    "default_variants": []
-                },
-                "create_publish_layout": {
-                    "enabled": true,
-                    "active_on_create": true,
-                    "keep_layers_transparency": true,
-                    "extract_psd": false,
-                    "default_variant": "Main",
-                    "default_variants": []
-                }
+        "general": {
+            "windows_on_top": {
+                "default": true,
+                "softs": [
+                    {
+                        "applications": [],
+                        "on_top": true
+                    }
+                ]
             }
         },
-        "photoshop": {
-            "groups": {
-                "templates": {
-                    "default": "{group_number:02d}0_{type}",
-                    "overriden": [{"layer_type" : "REF", "template":"XX_{type}"}, {"layer_type" : "UTIL", "template":"XX_{type}"}]
+        "hosts": {
+            "aftereffects": {
+                "publish": {
+                    "CollectAERender": {
+                        "format_conversion": [
+                            {
+                                "format": "PNG Sequence",
+                                "converted_label": "png"
+                            },
+                            {
+                                "format": "Photoshop Sequence",
+                                "converted_label": "psd"
+                            },
+                            {
+                                "format": "OpenEXR Sequence",
+                                "converted_label": "exr"
+                            },
+                            {
+                                "format": "AVI",
+                                "converted_label": "avi"
+                            },
+                            {
+                                "format": "h.264",
+                                "converted_label": "h264"
+                            },
+                            {
+                                "format": "QuickTime",
+                                "converted_label": "mov"
+                            }
+                        ]
+                    }
+                } 
+            },
+            "tvpaint": {
+                "publish":  {
+                    "ExtractPsd":  {
+                        "enabled": false
+                    },
+                    "ExtractJson":  {
+                        "enabled": false
+                    },
+                    "IntegrateKitsuSequence":  {
+                        "enabled": false
+                    }
                 },
-                "expressions": {
-                    "default": "(.+)",
-                    "layer_name": "(.+)",
-                    "type": "(REF|UTIL)",
-                    "group_number": "\\d{2}"
+                "create": {
+                    "create_json": {
+                        "enabled": true,
+                        "default_variant": "Main",
+                        "default_variants": []
+                    },
+                    "create_playblast": {
+                        "enabled": true,
+                        "active_on_create": true,
+                        "mark_for_review": true,
+                        "extract_psd": false,
+                        "default_variant": "Main",
+                        "default_variants": []
+                    },
+                    "create_publish_layout": {
+                        "enabled": true,
+                        "active_on_create": true,
+                        "keep_layers_transparency": true,
+                        "extract_psd": false,
+                        "default_variant": "Main",
+                        "default_variants": []
+                    }
                 }
             },
-            "layers": {
-                "templates": {
-                    "default": "{group_number:02d}0_{layer_number}_{type}_{layer_name}",
-                    "overriden": [{"layer_type" : "REF", "template":"XX_{type}_{layer_name}"}, {"layer_type" : "UTIL", "template":"XX_{type}_{layer_name}"}]
+            "photoshop": {
+                "groups": {
+                    "templates": {
+                        "default": "{group_number:02d}0_{type}",
+                        "overriden": [{"layer_type" : "REF", "template":"XX_{type}"}, {"layer_type" : "UTIL", "template":"XX_{type}"}]
+                    },
+                    "expressions": {
+                        "default": "(.+)",
+                        "layer_name": "(.+)",
+                        "type": "(REF|UTIL)",
+                        "group_number": "\\d{2}"
+                    }
                 },
-                "expressions": {
-                    "default": "(.+)",
-                    "layer_name": "(.+)",
-                    "type": "(CH|BG|PNG|REF|UTIL)",
-                    "group_number": "\\d{2}",
-                    "layer_number": "[a-z]"
+                "layers": {
+                    "templates": {
+                        "default": "{group_number:02d}0_{layer_number}_{type}_{layer_name}",
+                        "overriden": [{"layer_type" : "REF", "template":"XX_{type}_{layer_name}"}, {"layer_type" : "UTIL", "template":"XX_{type}_{layer_name}"}]
+                    },
+                    "expressions": {
+                        "default": "(.+)",
+                        "layer_name": "(.+)",
+                        "type": "(CH|BG|PNG|REF|UTIL)",
+                        "group_number": "\\d{2}",
+                        "layer_number": "[a-z]"
+                    }
+                },
+                "types_colors": {
+                    "red": "CH",
+                    "blue": "BG",
+                    "violet": "PNG",
+                    "yellowColor": "UTIL",
+                    "grain": "REF"
                 }
-            },
-            "types_colors": {
-                "red": "CH",
-                "blue": "BG",
-                "violet": "PNG",
-                "yellowColor": "UTIL",
-                "grain": "REF"
             }
         }
     }
