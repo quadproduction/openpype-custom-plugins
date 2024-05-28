@@ -5,16 +5,38 @@
     "collapsible": true,
     "children": [
         {
-            "type": "template",
-            "name": "fix_custom_settings/aftereffects"
+            "type": "dict",
+            "key": "general",
+            "label": "General",
+            "collapsible": true,
+            "children": [
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/general"
+                }
+            ]
+
         },
         {
-            "type": "template",
-            "name": "fix_custom_settings/tvpaint"
-        },
-        {
-            "type": "template",
-            "name": "fix_custom_settings/photoshop"
+            "type": "dict",
+            "key": "hosts",
+            "label": "Hosts",
+            "collapsible": true,
+            "children": [
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/aftereffects"
+                },
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/tvpaint"
+                },
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/photoshop"
+                }
+            ]
         }
+        
     ]
 }
