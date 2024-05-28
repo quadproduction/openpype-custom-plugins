@@ -16,18 +16,17 @@
             },
             {
                 "type": "list",
-                "key": "softs",
-                "label": "Per softs",
+                "key": "per_hosts",
+                "label": "Per host",
                 "use_label_wrap": true,
                 "object_type": {
                     "type": "dict",
                     "children": [
                         {
-                            "key": "applications",
-                            "label": "Applications",
-                            "type": "apps-enum",
-                            "multiselection": true,
-                            "tooltip": "Applications are not \"live\" and may require to Save and refresh settings UI to update values."
+                            "key": "hosts",
+                            "label": "Hosts",
+                            "type": "hosts-enum",
+                            "multiselection": true
                         },
                         {
                             "type": "boolean",

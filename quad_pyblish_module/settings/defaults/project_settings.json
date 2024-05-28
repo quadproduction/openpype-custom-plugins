@@ -3,9 +3,9 @@
         "general": {
             "windows_on_top": {
                 "default": true,
-                "softs": [
+                "per_hosts": [
                     {
-                        "applications": [],
+                        "hosts": [],
                         "on_top": true
                     }
                 ]
