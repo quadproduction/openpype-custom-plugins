@@ -35,7 +35,7 @@ class IntegrateKitsuSequence(pyblish.api.InstancePlugin):
         for representation in instance.data.get("representations", []):
             # Skip if Extract Sequence has interpreted image generation 
             # as review (before video concatenation) instead of a simple sequence.
-            if "sequence" not in representation.get("tags", []):
+            if not any(tag in ["sequence", "single_frame"] for tag in representation.get("tags", [])):
                 continue
 
             filenames = representation.get("files")
