@@ -205,6 +205,10 @@ class ValidateNomenclature(
 
     def rename(self, template, layer, group_index, layer_index=None):
         layer_type = self.types_colors.get(layer.color_code, '??')
+
+        if ' ' in layer.name:
+            layer.name = layer.name.replace(" ", "")
+
         new_layer_name = template.format(
             **self._pack_layer_data(layer, layer_type, group_index, layer_index)
         )
