@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<error id="main">
+<title>Name Uniqueness</title>
+<description>
+## Name of layer not unique
+
+Layer or Group have not unique names
+
+### How to repair?
+
+You can select the default layers with the "Select Layers" button on the right and correct them.
+</description>
+</error>
+</root>
