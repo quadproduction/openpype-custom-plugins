@@ -6,15 +6,15 @@
     "children": [
         {
             "type": "template",
-            "name": "quad_custom_settings/aftereffects"
+            "name": "quad_custom_settings/hosts/aftereffects"
         },
         {
             "type": "template",
-            "name": "quad_custom_settings/tvpaint"
+            "name": "quad_custom_settings/hosts/tvpaint"
         },
         {
             "type": "template",
-            "name": "quad_custom_settings/photoshop"
+            "name": "quad_custom_settings/hosts/photoshop"
         }
     ]
 }

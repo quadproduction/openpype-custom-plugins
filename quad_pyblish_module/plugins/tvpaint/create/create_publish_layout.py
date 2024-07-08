@@ -25,7 +25,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
-            project_settings["quad_custom_settings"]["tvpaint"]["create"]["create_publish_layout"]
+            project_settings["quad_custom_settings"]["hosts"]["tvpaint"]["create"]["create_publish_layout"]
         )
         self.active_on_create = plugin_settings["active_on_create"]
         self.keep_layers_transparency = plugin_settings["keep_layers_transparency"]

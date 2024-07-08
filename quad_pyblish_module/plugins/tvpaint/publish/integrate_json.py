@@ -17,7 +17,7 @@ class IntegrateJson(pyblish.api.ContextPlugin):
     project_name = os.environ['AVALON_PROJECT']
     project_settings = get_project_settings(project_name)
 
-    enabled = project_settings['quad_custom_settings']['tvpaint']['publish'][
+    enabled = project_settings['quad_custom_settings']["hosts"]['tvpaint']['publish'][
         'ExtractJson']['enabled']
 
     def process(self, context):
