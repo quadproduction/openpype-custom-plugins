@@ -88,7 +88,7 @@ class ValidateLayersOrganization(
         project_name = os.environ['AVALON_PROJECT']
         project_settings = get_project_settings(project_name)
         try:
-            layers_types_colors = project_settings['fix_custom_settings']['photoshop']['types_colors']
+            layers_types_colors = project_settings['fix_custom_settings']["hosts"]['photoshop']['types_colors']
         except KeyError as err:
             msg = "Layers types colors has not been found in settings. ValidateNomenclature plugin can't be executed."
             logging.error(msg)

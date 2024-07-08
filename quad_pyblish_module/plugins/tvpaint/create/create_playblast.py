@@ -22,7 +22,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
-            project_settings["fix_custom_settings"]["tvpaint"]["create"]["create_playblast"]
+            project_settings["fix_custom_settings"]["hosts"]["tvpaint"]["create"]["create_playblast"]
         )
         self.mark_for_review = plugin_settings["mark_for_review"]
         self.active_on_create = plugin_settings["active_on_create"]
