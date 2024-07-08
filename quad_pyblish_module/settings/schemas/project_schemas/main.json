@@ -1,20 +1,42 @@
 {
     "type": "dict",
-    "key": "quad_custom_settings",
-    "label": "Quad Custom Settings",
+    "key": "fix_custom_settings",
+    "label": "Fix custom Settings",
     "collapsible": true,
     "children": [
         {
-            "type": "template",
-            "name": "quad_custom_settings/hosts/aftereffects"
+            "type": "dict",
+            "key": "general",
+            "label": "General",
+            "collapsible": true,
+            "children": [
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/general"
+                }
+            ]
+
         },
         {
-            "type": "template",
-            "name": "quad_custom_settings/hosts/tvpaint"
-        },
-        {
-            "type": "template",
-            "name": "quad_custom_settings/hosts/photoshop"
+            "type": "dict",
+            "key": "hosts",
+            "label": "Hosts",
+            "collapsible": true,
+            "children": [
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/aftereffects"
+                },
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/tvpaint"
+                },
+                {
+                    "type": "template",
+                    "name": "fix_custom_settings/photoshop"
+                }
+            ]
         }
+        
     ]
 }
