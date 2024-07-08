@@ -80,11 +80,11 @@ class ValidateNomenclature(
         project_settings = get_project_settings(project_name)
 
         try:
-            self.types_colors = project_settings['fix_custom_settings']["hosts"]['photoshop']['types_colors']
-            self.groups_templates = project_settings['fix_custom_settings']["hosts"]['photoshop']['groups']['templates']
-            self.layers_templates = project_settings['fix_custom_settings']["hosts"]['photoshop']['layers']['templates']
-            self.groups_expressions = project_settings['fix_custom_settings']["hosts"]['photoshop']['groups']['expressions']
-            self.layers_expressions = project_settings['fix_custom_settings']["hosts"]['photoshop']['layers']['expressions']
+            self.types_colors = project_settings['quad_custom_settings']['hosts']['photoshop']['types_colors']
+            self.groups_templates = project_settings['quad_custom_settings']['hosts']['photoshop']['groups']['templates']
+            self.layers_templates = project_settings['quad_custom_settings']['hosts']['photoshop']['layers']['templates']
+            self.groups_expressions = project_settings['quad_custom_settings']['hosts']['photoshop']['groups']['expressions']
+            self.layers_expressions = project_settings['quad_custom_settings']['hosts']['photoshop']['layers']['expressions']
 
         except KeyError as err:
             msg = "Types colors, templates or expressions are missing from settings. ValidateNomenclature plugin can't be executed."

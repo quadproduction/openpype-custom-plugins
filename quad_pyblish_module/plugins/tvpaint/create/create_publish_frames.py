@@ -15,7 +15,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
     family = "render"
     subset_template_family_filter = "publish.sequence"
     identifier = "publish.sequence"
-    label = "Publish frame(s)"
+    label = "Publish Layout"
     icon = "fa.file-image-o"
     host_name = "tvpaint"
 
@@ -25,7 +25,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
-            project_settings["fix_custom_settings"]["hosts"]["tvpaint"]["create"]["create_publish_layout"]
+            project_settings["quad_custom_settings"]["hosts"]["tvpaint"]["create"]["create_publish_layout"]
         )
         self.active_on_create = plugin_settings["active_on_create"]
         self.keep_layers_transparency = plugin_settings["keep_layers_transparency"]
