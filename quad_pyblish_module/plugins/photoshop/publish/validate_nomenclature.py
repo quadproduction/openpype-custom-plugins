@@ -73,7 +73,7 @@ class ValidateNomenclature(
     active = False
 
     def process(self, context):
-        if not self.active or not self.is_active(context.data):
+        if not self.is_active(context.data):
             return
         
         project_name = os.environ['AVALON_PROJECT']
