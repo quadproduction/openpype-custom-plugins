@@ -39,7 +39,6 @@ class ValidateBlendMode(
     active = False
 
     def process(self, context):
-
         if not self.is_active(context.data):
             return
         

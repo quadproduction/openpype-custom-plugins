@@ -15,7 +15,7 @@ class TVPaintJsonCreator(TVPaintAutoCreator):
 
     def apply_settings(self, project_settings, system_settings):
         plugin_settings = (
-            project_settings["fix_custom_settings"]["tvpaint"]["create"][
+            project_settings["quad_custom_settings"]["hosts"]["tvpaint"]["create"][
                 "create_json"]
         )
         self.default_variant = plugin_settings["default_variant"]

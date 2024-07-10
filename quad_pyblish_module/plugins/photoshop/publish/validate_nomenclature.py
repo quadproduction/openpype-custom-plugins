@@ -80,11 +80,11 @@ class ValidateNomenclature(
         project_settings = get_project_settings(project_name)
 
         try:
-            self.types_colors = project_settings['fix_custom_settings']['photoshop']['types_colors']
-            self.groups_templates = project_settings['fix_custom_settings']['photoshop']['groups']['templates']
-            self.layers_templates = project_settings['fix_custom_settings']['photoshop']['layers']['templates']
-            self.groups_expressions = project_settings['fix_custom_settings']['photoshop']['groups']['expressions']
-            self.layers_expressions = project_settings['fix_custom_settings']['photoshop']['layers']['expressions']
+            self.types_colors = project_settings['quad_custom_settings']['hosts']['photoshop']['types_colors']
+            self.groups_templates = project_settings['quad_custom_settings']['hosts']['photoshop']['groups']['templates']
+            self.layers_templates = project_settings['quad_custom_settings']['hosts']['photoshop']['layers']['templates']
+            self.groups_expressions = project_settings['quad_custom_settings']['hosts']['photoshop']['groups']['expressions']
+            self.layers_expressions = project_settings['quad_custom_settings']['hosts']['photoshop']['layers']['expressions']
 
         except KeyError as err:
             msg = "Types colors, templates or expressions are missing from settings. ValidateNomenclature plugin can't be executed."
@@ -205,6 +205,10 @@ class ValidateNomenclature(
 
     def rename(self, template, layer, group_index, layer_index=None):
         layer_type = self.types_colors.get(layer.color_code, '??')
+
+        # Removing all whitespace characters
+        layer.name = re.sub(r'\s+', '', layer.name)
+
         new_layer_name = template.format(
             **self._pack_layer_data(layer, layer_type, group_index, layer_index)
         )
