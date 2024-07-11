@@ -15,7 +15,7 @@ class TVPaintPublishLayoutCreator(TVPaintAutoCreator):
     family = "render"
     subset_template_family_filter = "publish.sequence"
     identifier = "publish.sequence"
-    label = "Publish Layout"
+    label = "Publish Frame(s)"
     icon = "fa.file-image-o"
     host_name = "tvpaint"
 
