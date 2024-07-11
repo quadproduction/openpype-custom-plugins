@@ -36,6 +36,9 @@
                     }
                 } 
             },
+            "nuke":{
+                "set_resolution_startup": true
+            },
             "tvpaint": {
                 "publish":  {
                     "ExtractPsd":  {

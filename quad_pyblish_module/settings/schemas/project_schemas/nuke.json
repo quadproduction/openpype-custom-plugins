@@ -1,0 +1,16 @@
+[
+    {
+        "type": "dict",
+        "key": "nuke",
+        "label": "Nuke",
+        "collapsible": true,
+        "children": [
+            {
+                "type": "boolean",
+                "key": "set_resolution_startup",
+                "label": "Set Resolution On Startup",
+                "default": true
+            }
+        ]
+    }
+]

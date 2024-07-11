@@ -29,6 +29,10 @@
                 },
                 {
                     "type": "template",
+                    "name": "quad_custom_settings/nuke"
+                },
+                {
+                    "type": "template",
                     "name": "quad_custom_settings/tvpaint"
                 },
                 {
