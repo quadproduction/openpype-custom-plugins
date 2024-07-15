@@ -1,3 +1,5 @@
+"""Load an asset in Blender from an Alembic file."""
+
 from pathlib import Path
 from pprint import pformat
 from typing import Dict, List, Optional
@@ -14,16 +16,16 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_PROPERTY,
 )
 
-class ImageSequenceLoader(plugin.AssetLoader):
-    """Load or Replace Image Sequence in Blender in the last imported one.
+class ImageSequenceAdder(plugin.AssetLoader):
+    """Add Image Sequence in Blender.
 
-    Create or Replace background image sequence for active camera and assign selected images in the last imported one.
+    Add background image sequence for active camera and assign selected images.
     """
 
     families = ["image", "render"]
     representations = ["png"]
 
-    label = "Load/Replace Image Sequence"
+    label = "Add Image Sequence"
     icon = "code-fork"
     color = "orange"
 
@@ -48,7 +50,7 @@ class ImageSequenceLoader(plugin.AssetLoader):
 
         camera.data.show_background_images = True
         try:
-            background = camera.data.background_images[len(camera.data.background_images)-1]
+            background = camera.data.background_images[len(camera.data.background_images)]
         except IndexError:
             background = camera.data.background_images.new()        
         imported_image.source = 'SEQUENCE'

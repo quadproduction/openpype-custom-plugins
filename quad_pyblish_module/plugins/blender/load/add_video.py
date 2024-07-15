@@ -14,16 +14,16 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_PROPERTY,
 )
 
-class ImageVideo(plugin.AssetLoader):
-    """Load/Replace Video in Blender in the last imported one.
+class ImageVideoAdder(plugin.AssetLoader):
+    """Add Video in Blender.
 
-    Create/Replace background movie clip for active camera and assign selected video in the last imported one.
+    Add background movie clip for active camera and assign selected video.
     """
 
     families = ["image", "render", "review"]
     representations = ["mp4", "avi", "h264_mp4"]
 
-    label = "Load/Replace Video"
+    label = "Add Video"
     icon = "code-fork"
     color = "orange"
 
