@@ -14,16 +14,16 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_PROPERTY,
 )
 
-class ImageVideo(plugin.AssetLoader):
-    """Load/Replace Video in Blender in the last imported one.
+class ImageCameraAdder(plugin.AssetLoader):
+    """Add Image in Blender as background in camera.
 
-    Create/Replace background movie clip for active camera and assign selected video in the last imported one.
+    Create background image for active camera and assign selected image in a new background_images.
     """
 
     families = ["image", "render", "review"]
-    representations = ["mp4", "avi", "h264_mp4"]
+    representations = ["png"]
 
-    label = "Load/Replace Video"
+    label = "Add Image in Camera"
     icon = "code-fork"
     color = "orange"
 
@@ -39,20 +39,21 @@ class ImageVideo(plugin.AssetLoader):
             context: Full parenthood of representation to load
             options: Additional settings dictionary
         """
-        video_filepath = self.filepath_from_context(context)
-        imported_video = bpy.data.movieclips.load(video_filepath)
+        image_filepath = self.filepath_from_context(context)
+        imported_image = bpy.data.images.load(image_filepath)
 
         camera = bpy.context.scene.camera
         if not camera:
-            raise ValueError("No camera has been found in scene. Can't import video as camera background.")
+            raise ValueError("No camera has been found in scene. Can't import image as camera background.")
 
         camera.data.show_background_images = True
+        print (len(camera.data.background_images))
         try:
             background = camera.data.background_images[len(camera.data.background_images)]
         except IndexError:
-            background = camera.data.background_images.new()
+            background = camera.data.background_images.new()        
+        imported_image.source = 'FILE'
+        background.source = 'IMAGE'
+        background.image = imported_image
 
-        background.source = 'MOVIE_CLIP'
-        background.clip = imported_video
-
-        self.log.info(f"Video at path {imported_video.filepath} has been correctly loaded in scene as camera background.")
+        self.log.info(f"Image at path {imported_image.filepath} has been correctly added in scene as camera background.")
