@@ -29,5 +29,7 @@ class autoCropToDocResolution(
         stub = photoshop.stub()
         
         docResolution = stub.get_activeDocument_format_resolution()
+        if not docResolution:
+            return
         stub.crop_document_to_coordinate(0, 0, docResolution["width"], docResolution['height'])
 
