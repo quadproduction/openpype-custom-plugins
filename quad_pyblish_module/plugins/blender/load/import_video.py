@@ -48,7 +48,7 @@ class ImageVideo(plugin.AssetLoader):
 
         camera.data.show_background_images = True
         try:
-            background = camera.data.background_images[len(camera.data.background_images)]
+            background = camera.data.background_images[len(camera.data.background_images)-1]
         except IndexError:
             background = camera.data.background_images.new()
 
