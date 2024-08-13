@@ -1,3 +1,5 @@
+"""Load an asset in Blender from an Alembic file."""
+
 from pathlib import Path
 from pprint import pformat
 from typing import Dict, List, Optional
@@ -15,15 +17,15 @@ from openpype.hosts.blender.api.pipeline import (
 )
 
 class ImageCameraLoader(plugin.AssetLoader):
-    """Load or replace an Image in Blender as background in camera in the last imported one.
+    """Load Image in Blender as background in camera.
 
-    Create or replace the background image for active camera and assign selected image in the last imported one.
+    Create background image for active camera and assign selected image.
     """
 
     families = ["image", "render", "review"]
-    representations = ["png"]
+    representations = ["jpg", "png"]
 
-    label = "Load/Replace Image in Camera"
+    label = "Load Image in Camera"
     icon = "code-fork"
     color = "orange"
 
@@ -48,7 +50,7 @@ class ImageCameraLoader(plugin.AssetLoader):
 
         camera.data.show_background_images = True
         try:
-            background = camera.data.background_images[len(camera.data.background_images)-1]
+            background = camera.data.background_images[0]
         except IndexError:
             background = camera.data.background_images.new()        
         imported_image.source = 'FILE'

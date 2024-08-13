@@ -1,3 +1,5 @@
+"""Load an asset in Blender from an Alembic file."""
+
 from pathlib import Path
 from pprint import pformat
 from typing import Dict, List, Optional
@@ -15,15 +17,15 @@ from openpype.hosts.blender.api.pipeline import (
 )
 
 class ImageVideo(plugin.AssetLoader):
-    """Load/Replace Video in Blender in the last imported one.
+    """Load Video in Blender.
 
-    Create/Replace background movie clip for active camera and assign selected video in the last imported one.
+    Create background movie clip for active camera and assign selected video.
     """
 
     families = ["image", "render", "review"]
     representations = ["mp4", "avi", "h264_mp4"]
 
-    label = "Load/Replace Video"
+    label = "Load Video"
     icon = "code-fork"
     color = "orange"
 
@@ -48,7 +50,7 @@ class ImageVideo(plugin.AssetLoader):
 
         camera.data.show_background_images = True
         try:
-            background = camera.data.background_images[len(camera.data.background_images)]
+            background = camera.data.background_images[0]
         except IndexError:
             background = camera.data.background_images.new()
 
