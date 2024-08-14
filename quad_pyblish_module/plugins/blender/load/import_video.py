@@ -13,12 +13,12 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_CONTAINERS,
     AVALON_PROPERTY,
 )
-def blender_camera_bg_video_importer(video_filepath, reload = False):
+def blender_camera_bg_video_importer(video_filepath, replace_last_bg = False):
     """
     Will add or reload an image sequence in the camera background
 
     video_filepath: path to the video to load
-    reload(bool): If False will add an image background, if True, will replace the last imported image background
+    replace_last_bg(bool): If False will add an image background, if True, will replace the last imported image background
     """
     imported_video = bpy.data.movieclips.load(video_filepath)
 
@@ -27,10 +27,10 @@ def blender_camera_bg_video_importer(video_filepath, reload = False):
         raise ValueError("No camera has been found in scene. Can't import video as camera background.")
 
     camera.data.show_background_images = True
-    try:
-        background = camera.data.background_images[len(camera.data.background_images) - reload]
-    except IndexError:
-        background = camera.data.background_images.new()
+    if replace_last_bg and len(camera.data.background_images):
+        background = camera.data.background_images[-1]
+    else:
+        background = camera.data.background_images.new() 
 
     background.source = 'MOVIE_CLIP'
     background.clip = imported_video
@@ -64,7 +64,7 @@ class ImageVideoLoader(plugin.AssetLoader):
             options: Additional settings dictionary
         """
         video_filepath = self.filepath_from_context(context)
-        blender_camera_bg_video_importer(video_filepath, reload=True)
+        blender_camera_bg_video_importer(video_filepath, replace_last_bg=True)
 
 
 class ImageVideoAdder(plugin.AssetLoader):
@@ -93,4 +93,4 @@ class ImageVideoAdder(plugin.AssetLoader):
             options: Additional settings dictionary
         """
         video_filepath = self.filepath_from_context(context)
-        blender_camera_bg_video_importer(video_filepath, reload=False)
+        blender_camera_bg_video_importer(video_filepath, replace_last_bg=False)

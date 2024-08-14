@@ -14,12 +14,12 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_PROPERTY,
 )
 
-def blender_camera_bg_image_importer(image_filepath, reload = False):
+def blender_camera_bg_image_importer(image_filepath, replace_last_bg  = False):
     """
     Will add or reload an image in the camera background
 
     image_filepath: path to the image to load
-    reload(bool): If False will add an image background, if True, will replace the last imported image background
+    replace_last_bg(bool): If False will add an image background, if True, will replace the last imported image background
     """
     imported_image = bpy.data.images.load(image_filepath)
 
@@ -28,9 +28,9 @@ def blender_camera_bg_image_importer(image_filepath, reload = False):
         raise ValueError("No camera has been found in scene. Can't import image as camera background.")
 
     camera.data.show_background_images = True
-    try:
-        background = camera.data.background_images[len(camera.data.background_images) - reload]
-    except IndexError:
+    if replace_last_bg and len(camera.data.background_images):
+        background = camera.data.background_images[-1]
+    else:
         background = camera.data.background_images.new()        
     imported_image.source = 'FILE'
     background.source = 'IMAGE'
@@ -65,7 +65,7 @@ class ImageCameraLoader(plugin.AssetLoader):
             options: Additional settings dictionary
         """
         image_filepath = self.filepath_from_context(context)
-        blender_camera_bg_image_importer(image_filepath, reload=True)
+        blender_camera_bg_image_importer(image_filepath, replace_last_bg =True)
 
 
 class ImageCameraAdder(plugin.AssetLoader):
@@ -94,4 +94,4 @@ class ImageCameraAdder(plugin.AssetLoader):
             options: Additional settings dictionary
         """
         image_filepath = self.filepath_from_context(context)
-        blender_camera_bg_image_importer(image_filepath, reload=False)
+        blender_camera_bg_image_importer(image_filepath, replace_last_bg =False)

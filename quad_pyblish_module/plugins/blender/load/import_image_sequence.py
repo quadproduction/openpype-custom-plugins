@@ -14,13 +14,13 @@ from openpype.hosts.blender.api.pipeline import (
     AVALON_PROPERTY,
 )
 
-def blender_camera_bg_sequence_importer(image_filepath, context, reload = False):
+def blender_camera_bg_sequence_importer(image_filepath, context, replace_last_bg = False):
     """
     Will add or reload an image sequence in the camera background
 
     image_filepath: path to the image to load
     context(dict): Full parenthood of representation to load
-    reload(bool): If False will add an image background, if True, will replace the last imported image background
+    replace_last_bg(bool): If False will add an image background, if True, will replace the last imported image background
     """
     
     imported_image = bpy.data.images.load(image_filepath)
@@ -30,10 +30,11 @@ def blender_camera_bg_sequence_importer(image_filepath, context, reload = False)
         raise ValueError("No camera has been found in scene. Can't import image as camera background.")
 
     camera.data.show_background_images = True
-    try:
-        background = camera.data.background_images[len(camera.data.background_images) - reload]
-    except IndexError:
-        background = camera.data.background_images.new()        
+    if replace_last_bg and len(camera.data.background_images):
+        background = camera.data.background_images[-1]
+    else:
+        background = camera.data.background_images.new()
+
     imported_image.source = 'SEQUENCE'
     background.source = 'IMAGE'
     background.image = imported_image
@@ -82,7 +83,7 @@ class ImageSequenceLoader(plugin.AssetLoader):
             options: Additional settings dictionary
         """
         image_filepath = self.filepath_from_context(context)
-        blender_camera_bg_sequence_importer(image_filepath, context, reload=True)
+        blender_camera_bg_sequence_importer(image_filepath, context, replace_last_bg=True)
 
 class ImageSequenceAdder(plugin.AssetLoader):
     """Add Image Sequence in Blender.
@@ -110,4 +111,4 @@ class ImageSequenceAdder(plugin.AssetLoader):
             options: Additional settings dictionary
         """
         image_filepath = self.filepath_from_context(context)
-        blender_camera_bg_sequence_importer(image_filepath, context, reload=False)
+        blender_camera_bg_sequence_importer(image_filepath, context, replace_last_bg=False)
