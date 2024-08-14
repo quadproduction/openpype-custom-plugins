@@ -24,8 +24,8 @@ class ImageReferenceLoader(plugin.AssetLoader):
     representations = ["png"]
 
     label = "Load Image as Reference"
-    icon = "code-fork"
-    color = "orange"
+    icon = "calendar-plus-o"
+    color = "yellow"
 
     def process_asset(
         self, context: dict, name: str, namespace: Optional[str] = None,
