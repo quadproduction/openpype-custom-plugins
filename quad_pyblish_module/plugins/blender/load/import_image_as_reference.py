@@ -21,7 +21,7 @@ class ImageReferenceLoader(plugin.AssetLoader):
     """
 
     families = ["image", "render", "review"]
-    representations = ["jpg", "png"]
+    representations = ["png"]
 
     label = "Load Image as Reference"
     icon = "code-fork"
