@@ -30,7 +30,7 @@ class TVPaintPlayblastCreator(TVPaintAutoCreator):
         self.default_variants =  plugin_settings["default_variants"]
         self.extract_psd = plugin_settings["extract_psd"]
         self.apply_background = False
-        self.exports_types = ['camera', 'scene']
+        self.exports_types = ['scene', 'camera']
         self.export_type = self.exports_types[0]
         self.enabled = plugin_settings.get("enabled", True)
 

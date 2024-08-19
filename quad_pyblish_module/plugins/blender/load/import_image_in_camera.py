@@ -1,3 +1,5 @@
+"""Load an asset in Blender from an Alembic file."""
+
 from pathlib import Path
 from pprint import pformat
 from typing import Dict, List, Optional
@@ -42,11 +44,11 @@ def blender_camera_bg_image_importer(image_filepath, replace_last_bg  = False):
 class ImageCameraLoader(plugin.AssetLoader):
     """Replace Last Image in Blender as background in camera in the last imported one.
 
-    Create or replace the background image for active camera and assign selected image in the last imported one.
+    Create background image for active camera and assign selected image.
     """
 
     families = ["image", "render", "review"]
-    representations = ["png"]
+    representations = ["jpg", "png"]
 
     label = "Replace Last Image in Camera"
     icon = "refresh"
@@ -95,3 +97,4 @@ class ImageCameraAdder(plugin.AssetLoader):
         """
         image_filepath = self.filepath_from_context(context)
         blender_camera_bg_image_importer(image_filepath, replace_last_bg =False)
+

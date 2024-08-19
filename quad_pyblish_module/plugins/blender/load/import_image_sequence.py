@@ -1,3 +1,5 @@
+"""Load an asset in Blender from an Alembic file."""
+
 from pathlib import Path
 from pprint import pformat
 from typing import Dict, List, Optional
@@ -60,11 +62,12 @@ def blender_camera_bg_sequence_importer(image_filepath, context, replace_last_bg
 class ImageSequenceLoader(plugin.AssetLoader):
     """Replace Last Image Sequence in Blender in the last imported one.
 
-    Create or Replace background image sequence for active camera and assign selected images in the last imported one.
+    Create background image sequence for active camera and assign selected images.
     """
 
     families = ["image", "render"]
-    representations = ["png"]
+    representations = ["jpg", "png"]
+
 
     label = "Replace Last Image Sequence"
     icon = "refresh"

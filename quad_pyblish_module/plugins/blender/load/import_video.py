@@ -1,3 +1,5 @@
+"""Load an asset in Blender from an Alembic file."""
+
 from pathlib import Path
 from pprint import pformat
 from typing import Dict, List, Optional
@@ -41,7 +43,7 @@ def blender_camera_bg_video_importer(video_filepath, replace_last_bg = False):
 class ImageVideoLoader(plugin.AssetLoader):
     """Replace Last Video in Blender in the last imported one.
 
-    Create/Replace background movie clip for active camera and assign selected video in the last imported one.
+    Create background movie clip for active camera and assign selected video.
     """
 
     families = ["image", "render", "review"]
@@ -72,7 +74,6 @@ class ImageVideoAdder(plugin.AssetLoader):
 
     Add background movie clip for active camera and assign selected video.
     """
-
     families = ["image", "render", "review"]
     representations = ["mp4", "avi", "h264_mp4", "h264_png"]
 
