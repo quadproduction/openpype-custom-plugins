@@ -42,7 +42,7 @@ def blender_camera_bg_sequence_importer(image_filepath, context, replace_last_bg
     background.image = imported_image
     background.image_user.frame_duration
 
-    context_data = context.get('version', []).get('data', [])
+    context_data = context.get('version', {}).get('data', {})
     if not context_data:
         raise ValueError("Can't access to context data when retrieving frame informations. Abort.")
 
@@ -95,7 +95,7 @@ class ImageSequenceAdder(plugin.AssetLoader):
     """
 
     families = ["image", "render"]
-    representations = ["png"]
+    representations = ["jpg", "png"]
 
     label = "Add Image Sequence"
     icon = "window-restore"
