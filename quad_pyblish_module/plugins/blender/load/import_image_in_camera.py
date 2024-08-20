@@ -48,7 +48,7 @@ class ImageCameraLoader(plugin.AssetLoader):
     """
 
     families = ["image", "render", "review"]
-    representations = ["jpg", "png"]
+    representations = ["png"]
 
     label = "Replace Last Image in Camera"
     icon = "refresh"
