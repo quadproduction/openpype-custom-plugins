@@ -77,7 +77,7 @@ class ImageCameraAdder(plugin.AssetLoader):
     """
 
     families = ["image", "render", "review"]
-    representations = ["jpg", "png"]
+    representations = ["png"]
 
     label = "Add Image in Camera"
     icon = "file-image-o"
