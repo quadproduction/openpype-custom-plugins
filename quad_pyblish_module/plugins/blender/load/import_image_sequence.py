@@ -59,6 +59,7 @@ def blender_camera_bg_sequence_importer(image_filepath, context, replace_last_bg
 
     print(f"Image sequence at path {imported_image.filepath} has been correctly loaded in scene as camera background.")
 
+
 class ImageSequenceLoader(plugin.AssetLoader):
     """Replace Last Image Sequence in Blender in the last imported one.
 
@@ -66,8 +67,7 @@ class ImageSequenceLoader(plugin.AssetLoader):
     """
 
     families = ["image", "render"]
-    representations = ["png"]
-
+    representations = ["jpg", "png"]
 
     label = "Replace Last Image Sequence"
     icon = "refresh"
@@ -95,7 +95,7 @@ class ImageSequenceAdder(plugin.AssetLoader):
     """
 
     families = ["image", "render"]
-    representations = ["jpg", "png"]
+    representations = ["png"]
 
     label = "Add Image Sequence"
     icon = "window-restore"

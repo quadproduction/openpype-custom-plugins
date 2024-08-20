@@ -48,7 +48,7 @@ class ImageCameraLoader(plugin.AssetLoader):
     """
 
     families = ["image", "render", "review"]
-    representations = ["png"]
+    representations = ["jpg", "png"]
 
     label = "Replace Last Image in Camera"
     icon = "refresh"
@@ -77,7 +77,7 @@ class ImageCameraAdder(plugin.AssetLoader):
     """
 
     families = ["image", "render", "review"]
-    representations = ["jpg", "png"]
+    representations = ["png"]
 
     label = "Add Image in Camera"
     icon = "file-image-o"
