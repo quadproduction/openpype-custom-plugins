@@ -67,7 +67,7 @@ class ImageSequenceLoader(plugin.AssetLoader):
     """
 
     families = ["image", "render"]
-    representations = ["jpg", "png"]
+    representations = ["png"]
 
     label = "Replace Last Image Sequence"
     icon = "refresh"
