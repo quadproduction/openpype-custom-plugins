@@ -33,6 +33,8 @@ class ExtractPsd(pyblish.api.InstancePlugin):
             return
 
         george_script_lines = []
+        # Sorting repre to only take the png once
+        # This is directly link to the extract process of tvpaint
         repres = [repre for repre in instance.data.get("representations") if repre['name'] == 'png']
         if not repres:
             return
@@ -42,8 +44,9 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         scene_start_frame = int(instance.context.data["sceneStartFrame"])
         output_dir = instance.data.get("stagingDir")
 
-        custom_frames = instance.data.get("customFrames")
-        custom_mark_range = instance.data.get("customMarkRange", [])
+        export_frames = instance.data.get("exportFrames")
+        custom_mark_range = instance.data.get("ExportFramesWithoutOffset", [])
+
         if custom_mark_range:
             scene_mark_in = min(custom_mark_range)
             scene_mark_out = max(custom_mark_range)
