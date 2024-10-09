@@ -4,12 +4,15 @@ import os
 import json
 import tempfile
 from pathlib import Path
+import re
 
 import pyblish.api
 import logging
 from openpype.settings import get_project_settings
 from openpype.hosts.tvpaint.api import lib
-
+from openpype.hosts.tvpaint.lib import (
+    get_frame_filename_template
+)
 
 class ExtractPsd(pyblish.api.InstancePlugin):
     order = pyblish.api.ExtractorOrder + 0.02
@@ -41,15 +44,13 @@ class ExtractPsd(pyblish.api.InstancePlugin):
         
         scene_mark_in = int(instance.context.data["sceneMarkIn"])
         scene_mark_out = int(instance.context.data["sceneMarkOut"])
-        scene_start_frame = int(instance.context.data["sceneStartFrame"])
         output_dir = instance.data.get("stagingDir")
 
-        export_frames = instance.data.get("exportFrames")
+        export_indexes = list(range(scene_mark_in, scene_mark_out+1))
+            
         custom_mark_range = instance.data.get("ExportFramesWithoutOffset", [])
-
         if custom_mark_range:
-            scene_mark_in = min(custom_mark_range)
-            scene_mark_out = max(custom_mark_range)
+            export_indexes = custom_mark_range
 
         if output_dir:
             # Only convert to a Path object if not None or empty
@@ -71,13 +72,10 @@ class ExtractPsd(pyblish.api.InstancePlugin):
             filenames = repre['files']
 
             if type(filenames) != list:
-                filenames = [filenames]       
-            
-            # Update the enumerate_files if custom index or frame_range is given    
-            enumerate_files = zip(list(range(scene_mark_in, scene_mark_out+1)), filenames)
-
+                filenames = [filenames]
+ 
             new_filenames = []
-            for frame_index, filename in enumerate_files:
+            for frame_index, filename in zip(export_indexes, filenames):
                 new_filename = Path(filename).stem
                 dst_filepath = output_dir.joinpath(new_filename)
                 new_filenames.append(new_filename + '.psd')
