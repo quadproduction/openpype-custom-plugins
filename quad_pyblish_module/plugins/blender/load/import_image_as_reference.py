@@ -21,11 +21,11 @@ class ImageReferenceLoader(plugin.AssetLoader):
     """
 
     families = ["image", "render", "review"]
-    representations = ["jpg", "png"]
+    representations = ["png"]
 
     label = "Load Image as Reference"
-    icon = "code-fork"
-    color = "orange"
+    icon = "calendar-plus-o"
+    color = "yellow"
 
     def process_asset(
         self, context: dict, name: str, namespace: Optional[str] = None,
