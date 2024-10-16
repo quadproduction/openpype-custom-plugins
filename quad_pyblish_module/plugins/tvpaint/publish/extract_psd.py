@@ -4,15 +4,11 @@ import os
 import json
 import tempfile
 from pathlib import Path
-import re
 
 import pyblish.api
-import logging
 from openpype.settings import get_project_settings
 from openpype.hosts.tvpaint.api import lib
-from openpype.hosts.tvpaint.lib import (
-    get_frame_filename_template
-)
+
 
 class ExtractPsd(pyblish.api.InstancePlugin):
     order = pyblish.api.ExtractorOrder + 0.02
@@ -48,9 +44,9 @@ class ExtractPsd(pyblish.api.InstancePlugin):
 
         export_indexes = list(range(scene_mark_in, scene_mark_out+1))
             
-        custom_mark_range = instance.data.get("ExportFramesWithoutOffset", [])
-        if custom_mark_range:
-            export_indexes = custom_mark_range
+        export_frames_without_offset = instance.data.get("ExportFramesWithoutOffset", [])
+        if export_frames_without_offset:
+            export_indexes = export_frames_without_offset
 
         if output_dir:
             # Only convert to a Path object if not None or empty
@@ -64,14 +60,13 @@ class ExtractPsd(pyblish.api.InstancePlugin):
 
         new_psd_repres = []
         for repre in repres:
-
             self.log.info("Processing representation: {}".format(
                 json.dumps(repre, sort_keys=True, indent=4)
             ))
 
             filenames = repre['files']
 
-            if type(filenames) != list:
+            if not isinstance(filenames, list):
                 filenames = [filenames]
  
             new_filenames = []
